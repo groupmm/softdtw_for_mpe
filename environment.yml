@@ -1,0 +1,36 @@
+name: softdtw_for_mpe
+
+channels:
+  - pytorch
+  - defaults
+  - conda-forge
+  - nvidia
+
+
+dependencies:
+  - python
+  - pip
+  - numpy
+  - scipy
+  - matplotlib
+  - ipython
+  - jupyter
+  - pandas
+  - scikit-learn
+  - ffmpeg
+  - numba
+  - nbconvert
+  - pytorch
+  - pytorch-cuda
+  - torchvision
+  - pip:
+    - torchinfo
+    - mir-eval
+    - nbstripout
+    - music21
+    - pretty_midi
+    - librosa
+    - pysoundfile
+    - h5py
+    - helpers
+    - libfmp

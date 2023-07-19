@@ -1,0 +1,982 @@
+2022-08-07 01:00:51 | INFO : Logging experiment mctcwe_crossdataset_mediummodel
+2022-08-07 01:00:51 | INFO : Experiment config: do training = True
+2022-08-07 01:00:51 | INFO : Experiment config: do validation = True
+2022-08-07 01:00:51 | INFO : Experiment config: do testing = True
+2022-08-07 01:00:51 | INFO : Training set parameters: {'context': 75, 'seglength': 500, 'stride': 200, 'compression': 10}
+2022-08-07 01:00:51 | INFO : Validation set parameters: {'context': 75, 'seglength': 500, 'stride': 200, 'compression': 10}
+2022-08-07 01:00:51 | INFO : Test set parameters: {'context': 75, 'seglength': 100, 'stride': 100, 'compression': 10}
+2022-08-07 01:00:51 | INFO : Training parameters: {'batch_size': 1, 'shuffle': True, 'num_workers': 16}
+2022-08-07 01:00:51 | INFO : Trained model saved in /home/mk@alabsad.fau.de/Repos/multipitch_softdtw/models/mctcwe_crossdataset_mediummodel.pt
+2022-08-07 01:00:51 | INFO :  --- Training config: ----------------------------------------- 
+2022-08-07 01:00:51 | INFO : Maximum number of epochs: 100
+2022-08-07 01:00:51 | INFO : Criterion (Loss): mctc_we_loss
+2022-08-07 01:00:51 | INFO : Optimizer parameters: {'name': 'SGD', 'initial_lr': 0.01, 'momentum': 0.9}
+2022-08-07 01:00:51 | INFO : Scheduler parameters: {'use_scheduler': True, 'name': 'ReduceLROnPlateau', 'mode': 'min', 'factor': 0.5, 'patience': 5, 'threshold': 0.0001, 'threshold_mode': 'rel', 'cooldown': 0, 'min_lr': 1e-06, 'eps': 1e-08, 'verbose': False}
+2022-08-07 01:00:51 | INFO : Early stopping parameters: {'use_early_stopping': True, 'mode': 'min', 'min_delta': 1e-05, 'patience': 12, 'percentage': False}
+2022-08-07 01:00:51 | INFO : Test parameters: {'batch_size': 1, 'shuffle': False, 'num_workers': 8}
+2022-08-07 01:00:51 | INFO : Save filewise results = True, in folder /home/mk@alabsad.fau.de/Repos/multipitch_softdtw/experiments/results_filewise/mctcwe_crossdataset_mediummodel.csv
+2022-08-07 01:00:51 | INFO : Save model predictions = True, in folder /home/mk@alabsad.fau.de/Repos/multipitch_softdtw/predictions/mctcwe_crossdataset_mediummodel
+2022-08-07 01:00:51 | INFO : CUDA use_cuda: True
+2022-08-07 01:00:51 | INFO : CUDA device: cuda:0
+2022-08-07 01:00:52 | INFO :  --- Model config: -------------------------------------------- 
+2022-08-07 01:00:52 | INFO : Model: basic_cnn_segm_blank_logsoftmax
+2022-08-07 01:00:52 | INFO : Model parameters: {'n_chan_input': 6, 'n_chan_layers': [100, 100, 50, 10], 'n_ch_out': 2, 'n_bins_in': 216, 'n_bins_out': 72, 'a_lrelu': 0.3, 'p_dropout': 0.2}
+2022-08-07 01:00:55 | INFO : 
+==========================================================================================
+Layer (type:depth-idx)                   Output Shape              Param #
+==========================================================================================
+basic_cnn_segm_blank_logsoftmax          [1, 2, 100, 73]           --
+├─LayerNorm: 1-1                         [1, 174, 6, 216]          2,592
+├─Sequential: 1-2                        [1, 100, 174, 216]        --
+│    └─Conv2d: 2-1                       [1, 100, 174, 216]        135,100
+│    └─LeakyReLU: 2-2                    [1, 100, 174, 216]        --
+│    └─MaxPool2d: 2-3                    [1, 100, 174, 216]        --
+│    └─Dropout: 2-4                      [1, 100, 174, 216]        --
+├─Sequential: 1-3                        [1, 100, 174, 72]         --
+│    └─Conv2d: 2-5                       [1, 100, 174, 72]         90,100
+│    └─LeakyReLU: 2-6                    [1, 100, 174, 72]         --
+│    └─MaxPool2d: 2-7                    [1, 100, 174, 72]         --
+│    └─Dropout: 2-8                      [1, 100, 174, 72]         --
+├─Sequential: 1-4                        [1, 50, 100, 72]          --
+│    └─Conv2d: 2-9                       [1, 50, 100, 72]          375,050
+│    └─LeakyReLU: 2-10                   [1, 50, 100, 72]          --
+│    └─Dropout: 2-11                     [1, 50, 100, 72]          --
+├─Sequential: 1-5                        [1, 10, 100, 72]          --
+│    └─Conv2d: 2-12                      [1, 10, 100, 72]          510
+│    └─LeakyReLU: 2-13                   [1, 10, 100, 72]          --
+│    └─Dropout: 2-14                     [1, 10, 100, 72]          --
+├─Conv2d: 1-6                            [1, 2, 100, 1]            1,442
+├─Conv2d: 1-7                            [1, 2, 100, 72]           22
+├─LogSoftmax: 1-8                        [1, 2, 100, 73]           --
+==========================================================================================
+Total params: 604,816
+Trainable params: 604,816
+Non-trainable params: 0
+Total mult-adds (G): 8.91
+==========================================================================================
+Input size (MB): 0.90
+Forward/backward pass size (MB): 45.47
+Params size (MB): 2.42
+Estimated Total Size (MB): 48.79
+==========================================================================================
+2022-08-07 01:00:55 | INFO :  - file 2422_Beethoven_OP2NO1_PianoSonata.npy added to training set.
+2022-08-07 01:00:55 | INFO :  - file 2411_Beethoven_OP27NO1_PianoSonata.npy added to training set.
+2022-08-07 01:00:55 | INFO :  - file 2556_Beethoven_OP109_PianoSonata.npy added to training set.
+2022-08-07 01:00:55 | INFO :  - file 2237_Bach_BWV868_WTKI.npy added to training set.
+2022-08-07 01:00:55 | INFO :  - file 1758_Schubert_D958_PianoSonata.npy added to training set.
+2022-08-07 01:00:55 | INFO :  - file 1791_Mozart_K465_StringQuartet.npy added to training set.
+2022-08-07 01:00:56 | INFO :  - file 2330_Beethoven_OP12NO1_ViolinSonata.npy added to training set.
+2022-08-07 01:00:56 | INFO :  - file 2304_Bach_BWV859_WTKI.npy added to training set.
+2022-08-07 01:00:56 | INFO :  - file 2538_Beethoven_OP49NO2_PianoSonata.npy added to training set.
+2022-08-07 01:00:56 | INFO :  - file 2632_Beethoven_OP14NO2_PianoSonata.npy added to validation set.
+2022-08-07 01:00:56 | INFO :  - file 2127_Brahms_OP11_SerenadeNo.npy added to training set.
+2022-08-07 01:00:56 | INFO :  - file 2229_Bach_BWV865_WTKI.npy added to training set.
+2022-08-07 01:00:56 | INFO :  - file 2521_Beethoven_OP69_CelloSonata.npy added to training set.
+2022-08-07 01:00:56 | INFO :  - file 2420_Beethoven_OP12NO2_ViolinSonata.npy added to training set.
+2022-08-07 01:00:56 | INFO :  - file 2497_Beethoven_OP95_StringQuartet.npy added to training set.
+2022-08-07 01:00:57 | INFO :  - file 2241_Bach_BWV1001_ViolinSonata.npy added to training set.
+2022-08-07 01:00:57 | INFO :  - file 2191_Bach_BWV1006_ViolinPartita.npy added to training set.
+2022-08-07 01:00:57 | INFO :  - file 2308_Bach_BWV863_WTKI.npy added to training set.
+2022-08-07 01:00:57 | INFO :  - file 2540_Beethoven_OP101_PianoSonata.npy added to training set.
+2022-08-07 01:00:57 | INFO :  - file 2315_Beethoven_OP132_StringQuartet.npy added to validation set.
+2022-08-07 01:00:57 | INFO :  - file 2528_Beethoven_OP10NO1_PianoSonata.npy added to training set.
+2022-08-07 01:00:57 | INFO :  - file 2288_Bach_BWV1002_ViolinPartita.npy added to training set.
+2022-08-07 01:00:57 | INFO :  - file 1759_Schubert_D958_PianoSonata.npy added to training set.
+2022-08-07 01:00:57 | INFO :  - file 2210_Bach_BWV849_WTKI.npy added to training set.
+2022-08-07 01:00:57 | INFO :  - file 2239_Bach_BWV862_WTKI.npy added to training set.
+2022-08-07 01:00:58 | INFO :  - file 2594_Beethoven_OP31NO3_PianoSonata.npy added to training set.
+2022-08-07 01:00:58 | INFO :  - file 1792_Mozart_K465_StringQuartet.npy added to training set.
+2022-08-07 01:00:58 | INFO :  - file 2575_Beethoven_OP13_PianoSonata.npy added to training set.
+2022-08-07 01:00:58 | INFO :  - file 2177_Ravel_35_StringQuartet.npy added to training set.
+2022-08-07 01:00:58 | INFO :  - file 2230_Bach_BWV865_WTKI.npy added to training set.
+2022-08-07 01:00:58 | INFO :  - file 2371_Beethoven_OP14NO1_PianoSonata.npy added to training set.
+2022-08-07 01:00:58 | INFO :  - file 2348_Beethoven_OP27NO2_PianoSonata.npy added to training set.
+2022-08-07 01:00:58 | INFO :  - file 2582_Beethoven_OP54_PianoSonata.npy added to training set.
+2022-08-07 01:00:58 | INFO :  - file 2415_Beethoven_OP71_Sextetin.npy added to training set.
+2022-08-07 01:00:59 | INFO :  - file 2243_Bach_BWV1001_ViolinSonata.npy added to training set.
+2022-08-07 01:00:59 | INFO :  - file 2322_Beethoven_OP57_PianoSonata.npy added to training set.
+2022-08-07 01:00:59 | INFO :  - file 2208_Bach_BWV855_WTKI.npy added to training set.
+2022-08-07 01:00:59 | INFO :  - file 2158_Brahms_OP40_HornTrio.npy added to validation set.
+2022-08-07 01:00:59 | INFO :  - file 2336_Beethoven_OP30NO3_ViolinSonata.npy added to training set.
+2022-08-07 01:00:59 | INFO :  - file 2512_Beethoven_OP2NO2_PianoSonata.npy added to training set.
+2022-08-07 01:00:59 | INFO :  - file 2477_Beethoven_OP2NO3_PianoSonata.npy added to training set.
+2022-08-07 01:00:59 | INFO :  - file 2186_Bach_BWV1006_ViolinPartita.npy added to training set.
+2022-08-07 01:00:59 | INFO :  - file 2404_Beethoven_OP110_PianoSonata.npy added to training set.
+2022-08-07 01:01:00 | INFO :  - file 2242_Bach_BWV1001_ViolinSonata.npy added to training set.
+2022-08-07 01:01:00 | INFO :  - file 2531_Beethoven_OP111_PianoSonata.npy added to training set.
+2022-08-07 01:01:00 | INFO :  - file 2626_Beethoven_OP96_ViolinSonata.npy added to training set.
+2022-08-07 01:01:00 | INFO :  - file 2346_Beethoven_OP27NO2_PianoSonata.npy added to training set.
+2022-08-07 01:01:00 | INFO :  - file 2217_Bach_BWV1009_CelloSuite.npy added to training set.
+2022-08-07 01:01:00 | INFO :  - file 1893_Mozart_K564_PianoTrio.npy added to training set.
+2022-08-07 01:01:00 | INFO :  - file 1764_Schubert_OP142_4Impromptus.npy added to training set.
+2022-08-07 01:01:01 | INFO :  - file 2463_Beethoven_OP23_ViolinSonata.npy added to training set.
+2022-08-07 01:01:01 | INFO :  - file 2537_Beethoven_OP49NO2_PianoSonata.npy added to training set.
+2022-08-07 01:01:01 | INFO :  - file 2154_Brahms_OP18_StringSextet.npy added to training set.
+2022-08-07 01:01:01 | INFO :  - file 2211_Bach_BWV857_WTKI.npy added to training set.
+2022-08-07 01:01:01 | INFO :  - file 2294_Bach_BWV1010_CelloSuite.npy added to training set.
+2022-08-07 01:01:01 | INFO :  - file 2557_Beethoven_OP109_PianoSonata.npy added to training set.
+2022-08-07 01:01:01 | INFO :  - file 2510_Beethoven_OP2NO2_PianoSonata.npy added to training set.
+2022-08-07 01:01:02 | INFO :  - file 2079_Cambini_JOHN2_WindQuintet.npy added to training set.
+2022-08-07 01:01:02 | INFO :  - file 1918_Dvorak_OP51_StringQuartet.npy added to training set.
+2022-08-07 01:01:02 | INFO :  - file 2576_Beethoven_OP13_PianoSonata.npy added to training set.
+2022-08-07 01:01:02 | INFO :  - file 1873_Mozart_K502_PianoTrio.npy added to training set.
+2022-08-07 01:01:02 | INFO :  - file 2392_Beethoven_OP31NO2_PianoSonata.npy added to training set.
+2022-08-07 01:01:02 | INFO :  - file 2382_Beethoven_OP130_StringQuartet.npy added to training set.
+2022-08-07 01:01:02 | INFO :  - file 2334_Beethoven_OP30NO3_ViolinSonata.npy added to training set.
+2022-08-07 01:01:02 | INFO :  - file 2284_Bach_BWV1014_ViolinSonata.npy added to training set.
+2022-08-07 01:01:02 | INFO :  - file 1768_Schubert_D664_PianoSonata.npy added to training set.
+2022-08-07 01:01:02 | INFO :  - file 2292_Bach_BWV864_WTKI.npy added to training set.
+2022-08-07 01:01:03 | INFO :  - file 2410_Beethoven_OP27NO1_PianoSonata.npy added to training set.
+2022-08-07 01:01:03 | INFO :  - file 2166_Faure_OP45_PianoQuartet.npy added to training set.
+2022-08-07 01:01:03 | INFO :  - file 1819_Mozart_K375_Serenadein.npy added to validation set.
+2022-08-07 01:01:03 | INFO :  - file 2300_Bach_BWV853_WTKI.npy added to training set.
+2022-08-07 01:01:03 | INFO :  - file 1923_Dvorak_OP51_StringQuartet.npy added to training set.
+2022-08-07 01:01:03 | INFO :  - file 2590_Beethoven_OP26_PianoSonata.npy added to training set.
+2022-08-07 01:01:03 | INFO :  - file 1775_Schubert_D850_PianoSonata.npy added to training set.
+2022-08-07 01:01:03 | INFO :  - file 2483_Beethoven_OP18NO5_StringQuartet.npy added to training set.
+2022-08-07 01:01:04 | INFO :  - file 1777_Schubert_D850_PianoSonata.npy added to training set.
+2022-08-07 01:01:04 | INFO :  - file 2555_Beethoven_OP109_PianoSonata.npy added to training set.
+2022-08-07 01:01:04 | INFO :  - file 2677_Beethoven_OP14NO1_PianoSonata.npy added to training set.
+2022-08-07 01:01:04 | INFO :  - file 2118_Brahms_OP120NO1_ClarinetSonata.npy added to training set.
+2022-08-07 01:01:04 | INFO :  - file 2376_Beethoven_OP59NO2_StringQuartet.npy added to training set.
+2022-08-07 01:01:04 | INFO :  - file 2568_Beethoven_OP90_PianoSonata.npy added to training set.
+2022-08-07 01:01:04 | INFO :  - file 2423_Beethoven_OP2NO1_PianoSonata.npy added to training set.
+2022-08-07 01:01:04 | INFO :  - file 1933_Dvorak_OP96_StringQuartet.npy added to validation set.
+2022-08-07 01:01:04 | INFO :  - file 2234_Bach_BWV856_WTKI.npy added to training set.
+2022-08-07 01:01:05 | INFO :  - file 2591_Beethoven_OP26_PianoSonata.npy added to training set.
+2022-08-07 01:01:05 | INFO :  - file 2213_Bach_BWV847_WTKI.npy added to training set.
+2022-08-07 01:01:05 | INFO :  - file 2619_Beethoven_OP10NO2_PianoSonata.npy added to training set.
+2022-08-07 01:01:05 | INFO :  - file 2105_Haydn_OP64NO5_QuartetNo.npy added to training set.
+2022-08-07 01:01:05 | INFO :  - file 2247_Bach_BWV854_WTKI.npy added to training set.
+2022-08-07 01:01:05 | INFO :  - file 2244_Bach_BWV1001_ViolinSonata.npy added to training set.
+2022-08-07 01:01:05 | INFO :  - file 2581_Beethoven_OP54_PianoSonata.npy added to training set.
+2022-08-07 01:01:05 | INFO :  - file 2567_Beethoven_OP90_PianoSonata.npy added to training set.
+2022-08-07 01:01:05 | INFO :  - file 1755_Schubert_D784_PianoSonata.npy added to validation set.
+2022-08-07 01:01:05 | INFO :  - file 2532_Beethoven_OP111_PianoSonata.npy added to training set.
+2022-08-07 01:01:05 | INFO :  - file 2506_Beethoven_OP103_Octetin.npy added to training set.
+2022-08-07 01:01:06 | INFO :  - file 2564_Beethoven_OP22_PianoSonata.npy added to training set.
+2022-08-07 01:01:06 | INFO :  - file 2529_Beethoven_OP10NO1_PianoSonata.npy added to training set.
+2022-08-07 01:01:06 | INFO :  - file 1765_Schubert_OP142_4Impromptus.npy added to validation set.
+2022-08-07 01:01:06 | INFO :  - file 2431_Beethoven_OP135_StringQuartet.npy added to training set.
+2022-08-07 01:01:06 | INFO :  - file 1859_Mozart_K464_StringQuartet.npy added to training set.
+2022-08-07 01:01:06 | INFO :  - file 2523_Beethoven_OP69_CelloSonata.npy added to training set.
+2022-08-07 01:01:06 | INFO :  - file 1739_Schubert_OP99_PianoTrio.npy added to training set.
+2022-08-07 01:01:07 | INFO :  - file 2678_Beethoven_OP14NO2_PianoSonata.npy added to training set.
+2022-08-07 01:01:07 | INFO :  - file 2444_Beethoven_OP106_PianoSonata.npy added to training set.
+2022-08-07 01:01:07 | INFO :  - file 1818_Mozart_K375_Serenadein.npy added to training set.
+2022-08-07 01:01:07 | INFO :  - file 2377_Beethoven_OP59NO2_StringQuartet.npy added to training set.
+2022-08-07 01:01:07 | INFO :  - file 2114_Brahms_OP38_CelloSonata.npy added to training set.
+2022-08-07 01:01:08 | INFO :  - file 2168_Faure_OP45_PianoQuartet.npy added to training set.
+2022-08-07 01:01:08 | INFO :  - file 1752_Schubert_D845_PianoSonata.npy added to training set.
+2022-08-07 01:01:08 | INFO :  - file 1742_Schubert_OP163_StringQuintet.npy added to training set.
+2022-08-07 01:01:08 | INFO :  - file 1932_Dvorak_OP96_StringQuartet.npy added to validation set.
+2022-08-07 01:01:08 | INFO :  - file 2285_Bach_BWV1014_ViolinSonata.npy added to training set.
+2022-08-07 01:01:08 | INFO :  - file 1751_Schubert_D845_PianoSonata.npy added to training set.
+2022-08-07 01:01:08 | INFO :  - file 2298_Bach_BWV1010_CelloSuite.npy added to training set.
+2022-08-07 01:01:09 | INFO :  - file 2159_Brahms_OP40_HornTrio.npy added to training set.
+2022-08-07 01:01:09 | INFO :  - file 2629_Beethoven_OP96_ViolinSonata.npy added to training set.
+2022-08-07 01:01:09 | INFO :  - file 2405_Beethoven_OP110_PianoSonata.npy added to training set.
+2022-08-07 01:01:09 | INFO :  - file 1828_Mozart_K542_PianoTrio.npy added to training set.
+2022-08-07 01:01:10 | INFO :  - file 2116_Brahms_OP120NO1_ClarinetSonata.npy added to training set.
+2022-08-07 01:01:10 | INFO :  - file 2595_Beethoven_OP31NO3_PianoSonata.npy added to training set.
+2022-08-07 01:01:10 | INFO :  - file 2342_Beethoven_OP30NO3_ViolinSonata.npy added to validation set.
+2022-08-07 01:01:10 | INFO :  - file 2516_Beethoven_OP2NO2_PianoSonata.npy added to training set.
+2022-08-07 01:01:11 | INFO :  - file 1771_Schubert_D568_PianoSonata.npy added to training set.
+2022-08-07 01:01:11 | INFO :  - file 2505_Beethoven_OP103_Octetin.npy added to training set.
+2022-08-07 01:01:11 | INFO :  - file 1773_Schubert_D568_PianoSonata.npy added to training set.
+2022-08-07 01:01:12 | INFO :  - file 2618_Beethoven_OP10NO2_PianoSonata.npy added to training set.
+2022-08-07 01:01:12 | INFO :  - file 2359_Beethoven_OP28_PianoSonata.npy added to training set.
+2022-08-07 01:01:12 | INFO :  - file 2157_Brahms_OP18_StringSextet.npy added to validation set.
+2022-08-07 01:01:13 | INFO :  - file 2225_Bach_BWV852_WTKI.npy added to training set.
+2022-08-07 01:01:13 | INFO :  - file 2424_Beethoven_OP2NO1_PianoSonata.npy added to training set.
+2022-08-07 01:01:13 | INFO :  - file 2194_Bach_BWV858_WTKI.npy added to training set.
+2022-08-07 01:01:13 | INFO :  - file 2178_Ravel_35_StringQuartet.npy added to training set.
+2022-08-07 01:01:13 | INFO :  - file 2282_Bach_BWV1014_ViolinSonata.npy added to training set.
+2022-08-07 01:01:13 | INFO :  - file 2572_Beethoven_OP30NO2_ViolinSonata.npy added to training set.
+2022-08-07 01:01:14 | INFO :  - file 2562_Beethoven_OP18NO2_StringQuartet.npy added to training set.
+2022-08-07 01:01:14 | INFO :  - file 2350_Beethoven_OP27NO2_PianoSonata.npy added to training set.
+2022-08-07 01:01:14 | INFO :  - file 2218_Bach_BWV1009_CelloSuite.npy added to training set.
+2022-08-07 01:01:14 | INFO :  - file 2240_Bach_BWV862_WTKI.npy added to training set.
+2022-08-07 01:01:14 | INFO :  - file 2611_Beethoven_OP10NO3_PianoSonata.npy added to training set.
+2022-08-07 01:01:15 | INFO :  - file 2368_Beethoven_OP127_StringQuartet.npy added to training set.
+2022-08-07 01:01:15 | INFO :  - file 2303_Bach_BWV850_WTKI.npy added to validation set.
+2022-08-07 01:01:15 | INFO :  - file 2138_Brahms_OP51NO1_StringQuartet.npy added to training set.
+2022-08-07 01:01:15 | INFO :  - file 2417_Beethoven_OP71_Sextetin.npy added to training set.
+2022-08-07 01:01:15 | INFO :  - file 2106_Haydn_OP64NO5_QuartetNo.npy added to training set.
+2022-08-07 01:01:16 | INFO :  - file 1788_Mozart_K465_StringQuartet.npy added to training set.
+2022-08-07 01:01:16 | INFO :  - file 1789_Mozart_K465_StringQuartet.npy added to training set.
+2022-08-07 01:01:17 | INFO :  - file 2366_Beethoven_OP127_StringQuartet.npy added to training set.
+2022-08-07 01:01:17 | INFO :  - file 2397_Beethoven_OP47_ViolinSonata.npy added to training set.
+2022-08-07 01:01:17 | INFO :  - file 2222_Bach_BWV1009_CelloSuite.npy added to validation set.
+2022-08-07 01:01:18 | INFO :  - file 1807_Mozart_K387_StringQuartet.npy added to validation set.
+2022-08-07 01:01:18 | INFO :  - file 2472_Beethoven_OP2NO3_PianoSonata.npy added to training set.
+2022-08-07 01:01:18 | INFO :  - file 2441_Beethoven_OP106_PianoSonata.npy added to training set.
+2022-08-07 01:01:19 | INFO :  - file 2155_Brahms_OP18_StringSextet.npy added to training set.
+2022-08-07 01:01:19 | INFO :  - file 2501_Beethoven_OP12NO3_ViolinSonata.npy added to training set.
+2022-08-07 01:01:19 | INFO :  - file 2451_Beethoven_OP18NO6_StringQuartet.npy added to training set.
+2022-08-07 01:01:19 | INFO :  - file 2215_Bach_BWV846_WTKI.npy added to training set.
+2022-08-07 01:01:19 | INFO :  - file 2659_Bach_BWV1002_ViolinPartita.npy added to training set.
+2022-08-07 01:01:19 | INFO :  - file 2179_Ravel_35_StringQuartet.npy added to training set.
+2022-08-07 01:01:20 | INFO :  - file 1763_Schubert_OP142_4Impromptus.npy added to training set.
+2022-08-07 01:01:20 | INFO :  - file 2131_Brahms_OP11_SerenadeNo.npy added to training set.
+2022-08-07 01:01:20 | INFO :  - file 2522_Beethoven_OP69_CelloSonata.npy added to training set.
+2022-08-07 01:01:20 | INFO :  - file 2076_Cambini_JOHN1_WindQuintet.npy added to training set.
+2022-08-07 01:01:20 | INFO :  - file 2320_Beethoven_OP38_Trioin.npy added to training set.
+2022-08-07 01:01:20 | INFO :  - file 2238_Bach_BWV868_WTKI.npy added to training set.
+2022-08-07 01:01:21 | INFO :  - file 2295_Bach_BWV1010_CelloSuite.npy added to training set.
+2022-08-07 01:01:21 | INFO :  - file 2494_Beethoven_OP95_StringQuartet.npy added to training set.
+2022-08-07 01:01:21 | INFO :  - file 2156_Brahms_OP18_StringSextet.npy added to training set.
+2022-08-07 01:01:21 | INFO :  - file 2310_Bach_BWV860_WTKI.npy added to training set.
+2022-08-07 01:01:21 | INFO :  - file 2374_Beethoven_OP49NO1_PianoSonata.npy added to training set.
+2022-08-07 01:01:21 | INFO :  - file 2588_Beethoven_OP26_PianoSonata.npy added to training set.
+2022-08-07 01:01:21 | INFO :  - file 2633_Beethoven_OP14NO2_PianoSonata.npy added to validation set.
+2022-08-07 01:01:21 | INFO :  - file 2283_Bach_BWV1014_ViolinSonata.npy added to training set.
+2022-08-07 01:01:22 | INFO :  - file 2169_Faure_OP45_PianoQuartet.npy added to training set.
+2022-08-07 01:01:22 | INFO :  - file 2373_Beethoven_OP49NO1_PianoSonata.npy added to training set.
+2022-08-07 01:01:22 | INFO :  - file 2212_Bach_BWV857_WTKI.npy added to training set.
+2022-08-07 01:01:22 | INFO :  - file 2307_Bach_BWV863_WTKI.npy added to training set.
+2022-08-07 01:01:22 | INFO :  - file 1822_Mozart_K421_StringQuartet.npy added to training set.
+2022-08-07 01:01:22 | INFO :  - file 2358_Beethoven_OP28_PianoSonata.npy added to training set.
+2022-08-07 01:01:23 | INFO :  - file 2393_Beethoven_OP31NO2_PianoSonata.npy added to training set.
+2022-08-07 01:01:23 | INFO :  - file 1829_Mozart_K542_PianoTrio.npy added to training set.
+2022-08-07 01:01:23 | INFO :  - file 2514_Beethoven_OP2NO2_PianoSonata.npy added to training set.
+2022-08-07 01:01:23 | INFO :  - file 1756_Schubert_D784_PianoSonata.npy added to validation set.
+2022-08-07 01:01:24 | INFO :  - file 1749_Schubert_D845_PianoSonata.npy added to training set.
+2022-08-07 01:01:24 | INFO :  - file 2198_Bach_BWV867_WTKI.npy added to training set.
+2022-08-07 01:01:24 | INFO :  - file 1824_Mozart_K421_StringQuartet.npy added to training set.
+2022-08-07 01:01:24 | INFO :  - file 2492_Beethoven_OP7_PianoSonata.npy added to training set.
+2022-08-07 01:01:24 | INFO :  - file 2196_Bach_BWV848_WTKI.npy added to training set.
+2022-08-07 01:01:25 | INFO :  - file 2509_Beethoven_OP2NO2_PianoSonata.npy added to training set.
+2022-08-07 01:01:25 | INFO :  - file 2398_Beethoven_OP47_ViolinSonata.npy added to training set.
+2022-08-07 01:01:26 | INFO :  - file 2527_Beethoven_OP10NO1_PianoSonata.npy added to training set.
+2022-08-07 01:01:26 | INFO :  - file 1727_Schubert_OP114_PianoQuintet.npy added to training set.
+2022-08-07 01:01:26 | INFO :  - file 2603_Beethoven_OP81NO1_PianoSonata.npy added to training set.
+2022-08-07 01:01:27 | INFO :  - file 2381_Beethoven_OP130_StringQuartet.npy added to training set.
+2022-08-07 01:01:27 | INFO :  - file 2227_Bach_BWV851_WTKI.npy added to training set.
+2022-08-07 01:01:27 | INFO :  - file 2195_Bach_BWV848_WTKI.npy added to training set.
+2022-08-07 01:01:27 | INFO :  - file 2080_Cambini_JOHN2_WindQuintet.npy added to training set.
+2022-08-07 01:01:27 | INFO :  - file 1931_Dvorak_OP96_StringQuartet.npy added to training set.
+2022-08-07 01:01:27 | INFO :  - file 2325_Beethoven_OP57_PianoSonata.npy added to training set.
+2022-08-07 01:01:28 | INFO :  - file 2083_Cambini_JOHN3_WindQuintet.npy added to validation set.
+2022-08-07 01:01:28 | INFO :  - file 2620_Beethoven_OP10NO2_PianoSonata.npy added to training set.
+2022-08-07 01:01:28 | INFO :  - file 2442_Beethoven_OP106_PianoSonata.npy added to training set.
+2022-08-07 01:01:28 | INFO :  - file 1817_Mozart_K375_Serenadein.npy added to training set.
+2022-08-07 01:01:28 | INFO :  - file 2486_Beethoven_OP7_PianoSonata.npy added to training set.
+2022-08-07 01:01:29 | INFO :  - file 1733_Schubert_D959_PianoSonata.npy added to validation set.
+2022-08-07 01:01:29 | INFO :  - file 1916_Dvorak_OP51_StringQuartet.npy added to training set.
+2022-08-07 01:01:30 | INFO :  - file 1776_Schubert_D850_PianoSonata.npy added to training set.
+2022-08-07 01:01:30 | INFO :  - file 2150_Brahms_OP25_PianoQuartet.npy added to training set.
+2022-08-07 01:01:30 | INFO :  - file 2335_Beethoven_OP30NO3_ViolinSonata.npy added to training set.
+2022-08-07 01:01:31 | INFO :  - file 1729_Schubert_OP114_PianoQuintet.npy added to validation set.
+2022-08-07 01:01:31 | INFO :  - file 2488_Beethoven_OP7_PianoSonata.npy added to training set.
+2022-08-07 01:01:31 | INFO :  - file 2560_Beethoven_OP18NO2_StringQuartet.npy added to training set.
+2022-08-07 01:01:31 | INFO :  - file 2384_Beethoven_OP130_StringQuartet.npy added to training set.
+2022-08-07 01:01:32 | INFO :  - file 2530_Beethoven_OP111_PianoSonata.npy added to training set.
+2022-08-07 01:01:32 | INFO :  - file 2221_Bach_BWV1009_CelloSuite.npy added to validation set.
+2022-08-07 01:01:32 | INFO :  - file 2490_Beethoven_OP7_PianoSonata.npy added to training set.
+2022-08-07 01:01:32 | INFO :  - file 1766_Schubert_OP142_4Impromptus.npy added to validation set.
+2022-08-07 01:01:33 | INFO :  - file 2502_Beethoven_OP12NO3_ViolinSonata.npy added to training set.
+2022-08-07 01:01:33 | INFO :  - file 2313_Beethoven_OP132_StringQuartet.npy added to training set.
+2022-08-07 01:01:33 | INFO :  - file 2289_Bach_BWV1002_ViolinPartita.npy added to validation set.
+2022-08-07 01:01:34 | INFO :  - file 2571_Beethoven_OP30NO2_ViolinSonata.npy added to training set.
+2022-08-07 01:01:34 | INFO :  - file 1728_Schubert_OP114_PianoQuintet.npy added to training set.
+2022-08-07 01:01:34 | INFO :  - file 2570_Beethoven_OP30NO2_ViolinSonata.npy added to training set.
+2022-08-07 01:01:34 | INFO :  - file 2507_Beethoven_OP103_Octetin.npy added to training set.
+2022-08-07 01:01:35 | INFO :  - file 2406_Beethoven_OP110_PianoSonata.npy added to training set.
+2022-08-07 01:01:35 | INFO :  - file 2586_Beethoven_OP102NO1_CelloSonata.npy added to training set.
+2022-08-07 01:01:35 | INFO :  - file 2627_Beethoven_OP96_ViolinSonata.npy added to training set.
+2022-08-07 01:01:35 | INFO :  - file 2117_Brahms_OP120NO1_ClarinetSonata.npy added to training set.
+2022-08-07 01:01:35 | INFO :  - file 2231_Bach_BWV866_WTKI.npy added to training set.
+2022-08-07 01:01:36 | INFO :  - file 2220_Bach_BWV1009_CelloSuite.npy added to training set.
+2022-08-07 01:01:36 | INFO :  - file 2504_Beethoven_OP103_Octetin.npy added to training set.
+2022-08-07 01:01:36 | INFO :  - file 2596_Beethoven_OP31NO3_PianoSonata.npy added to training set.
+2022-08-07 01:01:36 | INFO :  - file 2607_Beethoven_OP31NO1_PianoSonata.npy added to training set.
+2022-08-07 01:01:37 | INFO :  - file 2491_Beethoven_OP7_PianoSonata.npy added to training set.
+2022-08-07 01:01:37 | INFO :  - file 2364_Beethoven_OP28_PianoSonata.npy added to training set.
+2022-08-07 01:01:37 | INFO :  - file 2416_Beethoven_OP71_Sextetin.npy added to training set.
+2022-08-07 01:01:37 | INFO :  - file 2480_Beethoven_OP18NO5_StringQuartet.npy added to validation set.
+2022-08-07 01:01:37 | INFO :  - file 2075_Cambini_JOHN1_WindQuintet.npy added to training set.
+2022-08-07 01:01:38 | INFO :  - file 2224_Bach_BWV852_WTKI.npy added to training set.
+2022-08-07 01:01:38 | INFO :  - file 2119_Brahms_OP120NO1_ClarinetSonata.npy added to training set.
+2022-08-07 01:01:38 | INFO :  - file 1735_Schubert_D959_PianoSonata.npy added to training set.
+2022-08-07 01:01:38 | INFO :  - file 2391_Beethoven_OP31NO2_PianoSonata.npy added to training set.
+2022-08-07 01:01:39 | INFO :  - file 2113_Brahms_OP38_CelloSonata.npy added to training set.
+2022-08-07 01:01:39 | INFO :  - file 2214_Bach_BWV847_WTKI.npy added to training set.
+2022-08-07 01:01:39 | INFO :  - file 1772_Schubert_D568_PianoSonata.npy added to training set.
+2022-08-07 01:01:39 | INFO :  - file 2297_Bach_BWV1010_CelloSuite.npy added to training set.
+2022-08-07 01:01:39 | INFO :  - file 2219_Bach_BWV1009_CelloSuite.npy added to training set.
+2022-08-07 01:01:40 | INFO :  - file 2140_Brahms_OP51NO1_StringQuartet.npy added to training set.
+2022-08-07 01:01:40 | INFO :  - file 2305_Bach_BWV859_WTKI.npy added to training set.
+2022-08-07 01:01:40 | INFO :  - file 2389_Beethoven_OP31NO2_PianoSonata.npy added to training set.
+2022-08-07 01:01:40 | INFO :  - file 2201_Bach_BWV861_WTKI.npy added to training set.
+2022-08-07 01:01:40 | INFO :  - file 2104_Haydn_OP64NO5_QuartetNo.npy added to training set.
+2022-08-07 01:01:40 | INFO :  - file 2628_Beethoven_OP96_ViolinSonata.npy added to training set.
+2022-08-07 01:01:41 | INFO :  - file 1813_Mozart_K581_ClarinetQuintet.npy added to training set.
+2022-08-07 01:01:41 | INFO :  - file 2203_Bach_BWV1013_Partitain.npy added to training set.
+2022-08-07 01:01:41 | INFO :  - file 2180_Ravel_35_StringQuartet.npy added to training set.
+2022-08-07 01:01:42 | INFO :  - file 2614_Beethoven_OP10NO3_PianoSonata.npy added to training set.
+2022-08-07 01:01:42 | INFO :  - file 2432_Beethoven_OP135_StringQuartet.npy added to training set.
+2022-08-07 01:01:42 | INFO :  - file 2365_Beethoven_OP127_StringQuartet.npy added to training set.
+2022-08-07 01:01:42 | INFO :  - file 2207_Bach_BWV855_WTKI.npy added to training set.
+2022-08-07 01:01:42 | INFO :  - file 2151_Brahms_OP25_PianoQuartet.npy added to training set.
+2022-08-07 01:01:42 | INFO :  - file 2314_Beethoven_OP132_StringQuartet.npy added to training set.
+2022-08-07 01:01:43 | INFO :  - file 2078_Cambini_JOHN2_WindQuintet.npy added to training set.
+2022-08-07 01:01:43 | INFO :  - file 1876_Mozart_K496_PianoTrio.npy added to training set.
+2022-08-07 01:01:43 | INFO :  - file 2293_Bach_BWV1010_CelloSuite.npy added to training set.
+2022-08-07 01:01:44 | INFO :  - file 2112_Brahms_OP38_CelloSonata.npy added to training set.
+2022-08-07 01:01:44 | INFO :  - file 1730_Schubert_OP114_PianoQuintet.npy added to training set.
+2022-08-07 01:01:44 | INFO :  - file 2566_Beethoven_OP22_PianoSonata.npy added to training set.
+2022-08-07 01:01:45 | INFO :  - file 2482_Beethoven_OP18NO5_StringQuartet.npy added to training set.
+2022-08-07 01:01:45 | INFO :  - file 1734_Schubert_D959_PianoSonata.npy added to training set.
+2022-08-07 01:01:45 | INFO :  - file 1750_Schubert_D845_PianoSonata.npy added to training set.
+2022-08-07 01:01:46 | INFO :  - file 1793_Mozart_K465_StringQuartet.npy added to training set.
+2022-08-07 01:01:46 | INFO :  - file 2471_Beethoven_OP2NO3_PianoSonata.npy added to training set.
+2022-08-07 01:01:46 | INFO :  - file 2542_Beethoven_OP101_PianoSonata.npy added to training set.
+2022-08-07 01:01:47 | INFO :  - file 1811_Mozart_K581_ClarinetQuintet.npy added to validation set.
+2022-08-07 01:01:47 | INFO :  - file 2209_Bach_BWV849_WTKI.npy added to training set.
+2022-08-07 01:01:47 | INFO :  - file 2161_Brahms_OP40_HornTrio.npy added to training set.
+2022-08-07 01:01:47 | INFO :  - file 2343_Beethoven_OP27NO2_PianoSonata.npy added to training set.
+2022-08-07 01:01:48 | INFO :  - file 2388_Beethoven_OP31NO2_PianoSonata.npy added to training set.
+2022-08-07 01:01:48 | INFO :  - file 2433_Beethoven_OP135_StringQuartet.npy added to training set.
+2022-08-07 01:01:48 | INFO :  - file 2081_Cambini_JOHN3_WindQuintet.npy added to validation set.
+2022-08-07 01:01:49 | INFO :  - file 2148_Brahms_OP25_PianoQuartet.npy added to training set.
+2022-08-07 01:01:49 | INFO :  - file 2345_Beethoven_OP27NO2_PianoSonata.npy added to training set.
+2022-08-07 01:01:49 | INFO :  - file 2593_Beethoven_OP31NO3_PianoSonata.npy added to training set.
+2022-08-07 01:01:50 | INFO :  - file 2533_Beethoven_OP111_PianoSonata.npy added to training set.
+2022-08-07 01:01:50 | INFO :  - file 2390_Beethoven_OP31NO2_PianoSonata.npy added to training set.
+2022-08-07 01:01:51 | INFO :  - file 2147_Brahms_OP36_StringSextet.npy added to training set.
+2022-08-07 01:01:51 | INFO :  - file 2296_Bach_BWV1010_CelloSuite.npy added to training set.
+2022-08-07 01:01:51 | INFO :  - file 1790_Mozart_K465_StringQuartet.npy added to training set.
+2022-08-07 01:01:51 | INFO :  - file 2436_Beethoven_OP53_PianoSonata.npy added to training set.
+2022-08-07 01:01:52 | INFO :  - file 2608_Beethoven_OP31NO1_PianoSonata.npy added to training set.
+2022-08-07 01:01:52 | INFO :  - file 2403_Beethoven_OP18NO1_StringQuartet.npy added to training set.
+2022-08-07 01:01:52 | INFO :  - file 2478_Beethoven_OP2NO3_PianoSonata.npy added to training set.
+2022-08-07 01:01:53 | INFO :  - file 2149_Brahms_OP25_PianoQuartet.npy added to training set.
+2022-08-07 01:01:53 | INFO :  - file 1805_Mozart_K387_StringQuartet.npy added to validation set.
+2022-08-07 01:01:53 | INFO :  - file 1760_Schubert_D958_PianoSonata.npy added to training set.
+2022-08-07 01:01:54 | INFO :  - file 1757_Schubert_D958_PianoSonata.npy added to training set.
+2022-08-07 01:01:54 | INFO :  - file 2204_Bach_BWV1013_Partitain.npy added to training set.
+2022-08-07 01:01:54 | INFO :  - file 2379_Beethoven_OP59NO2_StringQuartet.npy added to training set.
+2022-08-07 01:01:54 | INFO :  - file 2622_Beethoven_OP59NO1_StringQuartet.npy added to training set.
+2022-08-07 01:01:55 | INFO :  - file 2621_Beethoven_OP59NO1_StringQuartet.npy added to training set.
+2022-08-07 01:01:55 | INFO :  - file 2302_Bach_BWV850_WTKI.npy added to training set.
+2022-08-07 01:01:55 | INFO :  - file 1872_Mozart_K502_PianoTrio.npy added to training set.
+2022-08-07 01:01:56 | INFO :  - file 2462_Beethoven_OP23_ViolinSonata.npy added to training set.
+2022-08-07 01:01:56 | INFO :  - file 2383_Beethoven_OP130_StringQuartet.npy added to validation set.
+2022-08-07 01:01:56 | INFO :  - file 2473_Beethoven_OP2NO3_PianoSonata.npy added to training set.
+2022-08-07 01:01:56 | INFO :  - file 2481_Beethoven_OP18NO5_StringQuartet.npy added to training set.
+2022-08-07 01:01:57 | INFO :  - file 2077_Cambini_JOHN1_WindQuintet.npy added to training set.
+2022-08-07 01:01:57 | INFO :  - file 2160_Brahms_OP40_HornTrio.npy added to training set.
+2022-08-07 01:01:57 | INFO :  - file 2550_Beethoven_OP78_PianoSonata.npy added to training set.
+2022-08-07 01:01:57 | INFO :  - file 2202_Bach_BWV1013_Partitain.npy added to training set.
+2022-08-07 01:01:57 | INFO :  - file 2232_Bach_BWV866_WTKI.npy added to training set.
+2022-08-07 01:01:57 | INFO :  - file 2167_Faure_OP45_PianoQuartet.npy added to validation set.
+2022-08-07 01:01:58 | INFO :  - file 1919_Dvorak_OP51_StringQuartet.npy added to training set.
+2022-08-07 01:01:58 | INFO :  - file 1835_Mozart_K590_StringQuartet.npy added to training set.
+2022-08-07 01:01:58 | INFO :  - file 2318_Beethoven_OP38_Trioin.npy added to validation set.
+2022-08-07 01:01:58 | INFO :  - file 1812_Mozart_K581_ClarinetQuintet.npy added to training set.
+2022-08-07 01:01:59 | INFO :  - file 2357_Beethoven_OP28_PianoSonata.npy added to training set.
+2022-08-07 01:01:59 | INFO :  - file 2476_Beethoven_OP2NO3_PianoSonata.npy added to training set.
+2022-08-07 01:01:59 | INFO :  - file 2319_Beethoven_OP38_Trioin.npy added to training set.
+2022-08-07 01:02:00 | INFO :  - file 1922_Dvorak_OP51_StringQuartet.npy added to training set.
+2022-08-07 01:02:00 | INFO :  - file 2200_Bach_BWV861_WTKI.npy added to training set.
+2022-08-07 01:02:00 | INFO :  - file 2573_Beethoven_OP30NO2_ViolinSonata.npy added to training set.
+2022-08-07 01:02:00 | INFO :  - file 2487_Beethoven_OP7_PianoSonata.npy added to training set.
+2022-08-07 01:02:00 | INFO :  - file 2228_Bach_BWV851_WTKI.npy added to training set.
+2022-08-07 01:02:01 | INFO :  - file 2443_Beethoven_OP106_PianoSonata.npy added to training set.
+2022-08-07 01:02:01 | INFO :  - file 2248_Bach_BWV854_WTKI.npy added to training set.
+2022-08-07 01:02:01 | INFO :  - file 2372_Beethoven_OP14NO1_PianoSonata.npy added to training set.
+2022-08-07 01:02:02 | INFO :  - file 2341_Beethoven_OP30NO3_ViolinSonata.npy added to validation set.
+2022-08-07 01:02:02 | INFO :  - file 2082_Cambini_JOHN3_WindQuintet.npy added to validation set.
+2022-08-07 01:02:02 | INFO :  - file 2466_Beethoven_OP23_ViolinSonata.npy added to training set.
+2022-08-07 01:02:02 | INFO :  - file MIDI-Unprocessed_24_R1_2006_01-05_ORIG_MID--AUDIO_24_R1_2006_04_Track04_wav.npy added to training set.
+2022-08-07 01:02:03 | INFO :  - file MIDI-Unprocessed_07_R2_2006_01_ORIG_MID--AUDIO_07_R2_2006_01_Track01_wav.npy added to training set.
+2022-08-07 01:02:03 | INFO :  - file MIDI-Unprocessed_01_R1_2008_01-04_ORIG_MID--AUDIO_01_R1_2008_wav--1.npy added to training set.
+2022-08-07 01:02:04 | INFO :  - file MIDI-Unprocessed_Recital5-7_MID--AUDIO_06_R1_2018_wav--2.npy added to training set.
+2022-08-07 01:02:04 | INFO :  - file MIDI-Unprocessed_R2_D1-2-3-6-7-8-11_mid--AUDIO-from_mp3_07_R2_2015_wav--2.npy added to training set.
+2022-08-07 01:02:04 | INFO :  - file ORIG-MIDI_02_7_7_13_Group__MID--AUDIO_19_R1_2013_wav--3.npy added to training set.
+2022-08-07 01:02:05 | INFO :  - file MIDI-Unprocessed_XP_10_R1_2004_05_ORIG_MID--AUDIO_10_R1_2004_05_Track05_wav.npy added to training set.
+2022-08-07 01:02:06 | INFO :  - file MIDI-Unprocessed_057_PIANO057_MID--AUDIO-split_07-07-17_Piano-e_1-07_wav--5.npy added to training set.
+2022-08-07 01:02:06 | INFO :  - file MIDI-Unprocessed_09_R1_2009_01-04_ORIG_MID--AUDIO_09_R1_2009_09_R1_2009_02_WAV.npy added to training set.
+2022-08-07 01:02:06 | INFO :  - file MIDI-Unprocessed_082_PIANO082_MID--AUDIO-split_07-09-17_Piano-e_2_-04_wav--2.npy added to training set.
+2022-08-07 01:02:06 | INFO :  - file MIDI-Unprocessed_054_PIANO054_MID--AUDIO-split_07-07-17_Piano-e_1-02_wav--3.npy added to training set.
+2022-08-07 01:02:07 | INFO :  - file MIDI-Unprocessed_13_R1_2006_01-06_ORIG_MID--AUDIO_13_R1_2006_04_Track04_wav.npy added to training set.
+2022-08-07 01:02:07 | INFO :  - file ORIG-MIDI_01_7_7_13_Group__MID--AUDIO_12_R1_2013_wav--5.npy added to training set.
+2022-08-07 01:02:07 | INFO :  - file MIDI-Unprocessed_10_R1_2011_MID--AUDIO_R1-D4_02_Track02_wav.npy added to training set.
+2022-08-07 01:02:08 | INFO :  - file ORIG-MIDI_03_7_10_13_Group_MID--AUDIO_17_R3_2013_wav--3.npy added to training set.
+2022-08-07 01:02:09 | INFO :  - file MIDI-Unprocessed_12_R1_2009_03-05_ORIG_MID--AUDIO_12_R1_2009_12_R1_2009_03_WAV.npy added to training set.
+2022-08-07 01:02:09 | INFO :  - file MIDI-Unprocessed_07_R2_2009_01_ORIG_MID--AUDIO_07_R2_2009_07_R2_2009_02_WAV.npy added to training set.
+2022-08-07 01:02:10 | INFO :  - file MIDI-Unprocessed_SMF_16_R1_2004_01-08_ORIG_MID--AUDIO_16_R1_2004_13_Track13_wav.npy added to training set.
+2022-08-07 01:02:10 | INFO :  - file MIDI-UNPROCESSED_21-22_R1_2014_MID--AUDIO_21_R1_2014_wav--1.npy added to training set.
+2022-08-07 01:02:10 | INFO :  - file MIDI-UNPROCESSED_09-10_R1_2014_MID--AUDIO_10_R1_2014_wav--1.npy added to training set.
+2022-08-07 01:02:10 | INFO :  - file MIDI-Unprocessed_056_PIANO056_MID--AUDIO-split_07-07-17_Piano-e_1-05_wav--3.npy added to training set.
+2022-08-07 01:02:10 | INFO :  - file ORIG-MIDI_03_7_6_13_Group__MID--AUDIO_09_R1_2013_wav--2.npy added to training set.
+2022-08-07 01:02:11 | INFO :  - file MIDI-Unprocessed_SMF_05_R1_2004_01_ORIG_MID--AUDIO_05_R1_2004_03_Track03_wav.npy added to training set.
+2022-08-07 01:02:12 | INFO :  - file MIDI-Unprocessed_XP_18_R1_2004_04_ORIG_MID--AUDIO_18_R1_2004_07_Track07_wav.npy added to training set.
+2022-08-07 01:02:12 | INFO :  - file MIDI-Unprocessed_066_PIANO066_MID--AUDIO-split_07-07-17_Piano-e_3-02_wav--3.npy added to training set.
+2022-08-07 01:02:12 | INFO :  - file MIDI-Unprocessed_11_R1_2008_01-04_ORIG_MID--AUDIO_11_R1_2008_wav--1.npy added to training set.
+2022-08-07 01:02:13 | INFO :  - file ORIG-MIDI_01_7_10_13_Group_MID--AUDIO_08_R3_2013_wav--1.npy added to training set.
+2022-08-07 01:02:13 | INFO :  - file MIDI-Unprocessed_SMF_17_R1_2004_01-02_ORIG_MID--AUDIO_20_R2_2004_02_Track02_wav.npy added to training set.
+2022-08-07 01:02:13 | INFO :  - file MIDI-Unprocessed_SMF_02_R1_2004_01-05_ORIG_MID--AUDIO_02_R1_2004_05_Track05_wav.npy added to training set.
+2022-08-07 01:02:14 | INFO :  - file MIDI-Unprocessed_XP_04_R1_2004_03-05_ORIG_MID--AUDIO_04_R1_2004_05_Track05_wav.npy added to training set.
+2022-08-07 01:02:14 | INFO :  - file MIDI-Unprocessed_21_R1_2009_01-03_ORIG_MID--AUDIO_21_R1_2009_21_R1_2009_01_WAV.npy added to training set.
+2022-08-07 01:02:14 | INFO :  - file MIDI-Unprocessed_042_PIANO042_MID--AUDIO-split_07-06-17_Piano-e_1-02_wav--2.npy added to training set.
+2022-08-07 01:02:15 | INFO :  - file MIDI-Unprocessed_02_R1_2009_01-02_ORIG_MID--AUDIO_02_R1_2009_02_R1_2009_02_WAV.npy added to training set.
+2022-08-07 01:02:16 | INFO :  - file MIDI-Unprocessed_22_R3_2011_MID--AUDIO_R3-D7_03_Track03_wav.npy added to training set.
+2022-08-07 01:02:16 | INFO :  - file MIDI-Unprocessed_SMF_07_R1_2004_01_ORIG_MID--AUDIO_07_R1_2004_06_Track06_wav.npy added to training set.
+2022-08-07 01:02:17 | INFO :  - file MIDI-Unprocessed_11_R1_2006_01-06_ORIG_MID--AUDIO_11_R1_2006_04_Track04_wav.npy added to training set.
+2022-08-07 01:02:17 | INFO :  - file ORIG-MIDI_01_7_8_13_Group__MID--AUDIO_03_R2_2013_wav--2.npy added to training set.
+2022-08-07 01:02:17 | INFO :  - file MIDI-Unprocessed_01_R1_2006_01-09_ORIG_MID--AUDIO_01_R1_2006_03_Track03_wav.npy added to training set.
+2022-08-07 01:02:17 | INFO :  - file MIDI-Unprocessed_01_R1_2011_MID--AUDIO_R1-D1_05_Track05_wav.npy added to training set.
+2022-08-07 01:02:18 | INFO :  - file MIDI-Unprocessed_R1_D2-13-20_mid--AUDIO-from_mp3_18_R1_2015_wav--1.npy added to training set.
+2022-08-07 01:02:18 | INFO :  - file MIDI-Unprocessed_R2_D2-12-13-15_mid--AUDIO-from_mp3_13_R2_2015_wav--3.npy added to training set.
+2022-08-07 01:02:18 | INFO :  - file MIDI-Unprocessed_11_R1_2009_01-05_ORIG_MID--AUDIO_11_R1_2009_11_R1_2009_03_WAV.npy added to training set.
+2022-08-07 01:02:18 | INFO :  - file MIDI-Unprocessed_01_R1_2011_MID--AUDIO_R1-D1_02_Track02_wav.npy added to training set.
+2022-08-07 01:02:18 | INFO :  - file MIDI-Unprocessed_081_PIANO081_MID--AUDIO-split_07-09-17_Piano-e_2_-02_wav--3.npy added to training set.
+2022-08-07 01:02:19 | INFO :  - file MIDI-Unprocessed_Recital13-15_MID--AUDIO_13_R1_2018_wav--2.npy added to training set.
+2022-08-07 01:02:19 | INFO :  - file MIDI-Unprocessed_02_R2_2008_01-05_ORIG_MID--AUDIO_02_R2_2008_wav--4.npy added to training set.
+2022-08-07 01:02:20 | INFO :  - file MIDI-Unprocessed_XP_22_R2_2004_01_ORIG_MID--AUDIO_22_R2_2004_03_Track03_wav.npy added to training set.
+2022-08-07 01:02:20 | INFO :  - file MIDI-Unprocessed_R1_D1-1-8_mid--AUDIO-from_mp3_01_R1_2015_wav--1.npy added to training set.
+2022-08-07 01:02:20 | INFO :  - file MIDI-Unprocessed_060_PIANO060_MID--AUDIO-split_07-07-17_Piano-e_2-04_wav--1.npy added to training set.
+2022-08-07 01:02:20 | INFO :  - file MIDI-Unprocessed_072_PIANO072_MID--AUDIO-split_07-08-17_Piano-e_1-06_wav--1.npy added to training set.
+2022-08-07 01:02:21 | INFO :  - file MIDI-Unprocessed_R2_D1-2-3-6-7-8-11_mid--AUDIO-from_mp3_08_R2_2015_wav--3.npy added to training set.
+2022-08-07 01:02:21 | INFO :  - file MIDI-Unprocessed_047_PIANO047_MID--AUDIO-split_07-06-17_Piano-e_2-04_wav--3.npy added to training set.
+2022-08-07 01:02:21 | INFO :  - file MIDI-Unprocessed_Recital1-3_MID--AUDIO_02_R1_2018_wav--2.npy added to training set.
+2022-08-07 01:02:22 | INFO :  - file MIDI-Unprocessed_11_R1_2011_MID--AUDIO_R1-D4_11_Track11_wav.npy added to training set.
+2022-08-07 01:02:22 | INFO :  - file MIDI-Unprocessed_SMF_17_R1_2004_01-03_ORIG_MID--AUDIO_17_R1_2004_06_Track06_wav.npy added to training set.
+2022-08-07 01:02:22 | INFO :  - file MIDI-UNPROCESSED_06-08_R1_2014_MID--AUDIO_07_R1_2014_wav--4.npy added to training set.
+2022-08-07 01:02:23 | INFO :  - file MIDI-Unprocessed_Recital5-7_MID--AUDIO_07_R1_2018_wav--3.npy added to training set.
+2022-08-07 01:02:23 | INFO :  - file MIDI-Unprocessed_07_R1_2008_01-04_ORIG_MID--AUDIO_07_R1_2008_wav--4.npy added to training set.
+2022-08-07 01:02:23 | INFO :  - file MIDI-Unprocessed_R2_D2-19-21-22_mid--AUDIO-from_mp3_21_R2_2015_wav--2.npy added to training set.
+2022-08-07 01:02:24 | INFO :  - file MIDI-Unprocessed_R1_D1-9-12_mid--AUDIO-from_mp3_10_R1_2015_wav--2.npy added to training set.
+2022-08-07 01:02:24 | INFO :  - file MIDI-Unprocessed_24_R1_2006_01-05_ORIG_MID--AUDIO_24_R1_2006_02_Track02_wav.npy added to training set.
+2022-08-07 01:02:25 | INFO :  - file MIDI-Unprocessed_09_R1_2009_01-04_ORIG_MID--AUDIO_09_R1_2009_09_R1_2009_04_WAV.npy added to training set.
+2022-08-07 01:02:25 | INFO :  - file MIDI-UNPROCESSED_04-05_R1_2014_MID--AUDIO_05_R1_2014_wav--7.npy added to training set.
+2022-08-07 01:02:25 | INFO :  - file MIDI-Unprocessed_R1_D2-21-22_mid--AUDIO-from_mp3_22_R1_2015_wav--1.npy added to training set.
+2022-08-07 01:02:26 | INFO :  - file MIDI-Unprocessed_23_R2_2006_01_ORIG_MID--AUDIO_23_R2_2006_02_Track02_wav.npy added to training set.
+2022-08-07 01:02:26 | INFO :  - file MIDI-Unprocessed_060_PIANO060_MID--AUDIO-split_07-07-17_Piano-e_2-04_wav--4.npy added to training set.
+2022-08-07 01:02:26 | INFO :  - file MIDI-UNPROCESSED_06-08_R1_2014_MID--AUDIO_06_R1_2014_wav--1.npy added to training set.
+2022-08-07 01:02:26 | INFO :  - file MIDI-Unprocessed_045_PIANO045_MID--AUDIO-split_07-06-17_Piano-e_2-01_wav--4.npy added to training set.
+2022-08-07 01:02:27 | INFO :  - file MIDI-Unprocessed_02_R3_2008_01-03_ORIG_MID--AUDIO_02_R3_2008_wav--3.npy added to training set.
+2022-08-07 01:02:28 | INFO :  - file MIDI-Unprocessed_06_R1_2006_01-04_ORIG_MID--AUDIO_06_R1_2006_01_Track01_wav.npy added to training set.
+2022-08-07 01:02:29 | INFO :  - file MIDI-UNPROCESSED_16-18_R1_2014_MID--AUDIO_17_R1_2014_wav--1.npy added to training set.
+2022-08-07 01:02:29 | INFO :  - file MIDI-Unprocessed_XP_14_R2_2004_01_ORIG_MID--AUDIO_14_R2_2004_01_Track01_wav.npy added to training set.
+2022-08-07 01:02:30 | INFO :  - file MIDI-Unprocessed_10_R1_2006_01-04_ORIG_MID--AUDIO_10_R1_2006_05_Track05_wav.npy added to training set.
+2022-08-07 01:02:31 | INFO :  - file MIDI-UNPROCESSED_11-13_R1_2014_MID--AUDIO_11_R1_2014_wav--3.npy added to training set.
+2022-08-07 01:02:32 | INFO :  - file MIDI-Unprocessed_14_R1_2006_01-05_ORIG_MID--AUDIO_14_R1_2006_01_Track01_wav.npy added to training set.
+2022-08-07 01:02:32 | INFO :  - file MIDI-Unprocessed_R1_D1-1-8_mid--AUDIO-from_mp3_07_R1_2015_wav--3.npy added to training set.
+2022-08-07 01:02:32 | INFO :  - file MIDI-Unprocessed_21_R1_2011_MID--AUDIO_R1-D8_07_Track07_wav.npy added to training set.
+2022-08-07 01:02:33 | INFO :  - file MIDI-Unprocessed_16_R2_2006_01_ORIG_MID--AUDIO_16_R2_2006_03_Track03_wav.npy added to training set.
+2022-08-07 01:02:33 | INFO :  - file MIDI-Unprocessed_066_PIANO066_MID--AUDIO-split_07-07-17_Piano-e_3-02_wav--1.npy added to training set.
+2022-08-07 01:02:33 | INFO :  - file ORIG-MIDI_02_7_6_13_Group__MID--AUDIO_05_R1_2013_wav--1.npy added to training set.
+2022-08-07 01:02:34 | INFO :  - file MIDI-Unprocessed_05_R1_2009_01-02_ORIG_MID--AUDIO_05_R1_2009_05_R1_2009_02_WAV.npy added to training set.
+2022-08-07 01:02:34 | INFO :  - file MIDI-Unprocessed_12_R2_2008_01-04_ORIG_MID--AUDIO_12_R2_2008_wav--2.npy added to training set.
+2022-08-07 01:02:34 | INFO :  - file MIDI-UNPROCESSED_14-15_R1_2014_MID--AUDIO_15_R1_2014_wav--1.npy added to training set.
+2022-08-07 01:02:34 | INFO :  - file MIDI-Unprocessed_19_R2_2009_01_ORIG_MID--AUDIO_19_R2_2009_19_R2_2009_02_WAV.npy added to training set.
+2022-08-07 01:02:35 | INFO :  - file MIDI-Unprocessed_R2_D2-12-13-15_mid--AUDIO-from_mp3_15_R2_2015_wav--1.npy added to training set.
+2022-08-07 01:02:35 | INFO :  - file MIDI-Unprocessed_03_R1_2011_MID--AUDIO_R1-D1_18_Track18_wav.npy added to training set.
+2022-08-07 01:02:35 | INFO :  - file MIDI-Unprocessed_XP_20_R2_2004_01_ORIG_MID--AUDIO_20_R1_2004_03_Track03_wav.npy added to training set.
+2022-08-07 01:02:35 | INFO :  - file MIDI-Unprocessed_041_PIANO041_MID--AUDIO-split_07-06-17_Piano-e_1-01_wav--1.npy added to training set.
+2022-08-07 01:02:36 | INFO :  - file ORIG-MIDI_02_7_10_13_Group_MID--AUDIO_12_R3_2013_wav--4.npy added to training set.
+2022-08-07 01:02:36 | INFO :  - file MIDI-Unprocessed_18_R1_2006_01-05_ORIG_MID--AUDIO_18_R1_2006_04_Track04_wav.npy added to training set.
+2022-08-07 01:02:37 | INFO :  - file MIDI-Unprocessed_15_R1_2008_01-04_ORIG_MID--AUDIO_15_R1_2008_wav--3.npy added to training set.
+2022-08-07 01:02:37 | INFO :  - file MIDI-Unprocessed_15_R1_2011_MID--AUDIO_R1-D6_07_Track07_wav.npy added to training set.
+2022-08-07 01:02:37 | INFO :  - file MIDI-Unprocessed_25_R3_2011_MID--AUDIO_R3-D9_04_Track04_wav.npy added to training set.
+2022-08-07 01:02:38 | INFO :  - file MIDI-Unprocessed_19_R1_2009_01-02_ORIG_MID--AUDIO_19_R1_2009_19_R1_2009_02_WAV.npy added to training set.
+2022-08-07 01:02:39 | INFO :  - file MIDI-Unprocessed_06_R1_2009_03-07_ORIG_MID--AUDIO_06_R1_2009_06_R1_2009_07_WAV.npy added to training set.
+2022-08-07 01:02:39 | INFO :  - file MIDI-Unprocessed_SMF_22_R1_2004_01-04_ORIG_MID--AUDIO_22_R1_2004_05_Track05_wav.npy added to training set.
+2022-08-07 01:02:39 | INFO :  - file MIDI-Unprocessed_043_PIANO043_MID--AUDIO-split_07-06-17_Piano-e_1-03_wav--3.npy added to training set.
+2022-08-07 01:02:39 | INFO :  - file MIDI-Unprocessed_SMF_17_R1_2004_01-03_ORIG_MID--AUDIO_17_R1_2004_03_Track03_wav.npy added to training set.
+2022-08-07 01:02:40 | INFO :  - file MIDI-UNPROCESSED_16-18_R1_2014_MID--AUDIO_18_R1_2014_wav--2.npy added to training set.
+2022-08-07 01:02:40 | INFO :  - file MIDI-Unprocessed_R1_D2-13-20_mid--AUDIO-from_mp3_20_R1_2015_wav--2.npy added to training set.
+2022-08-07 01:02:40 | INFO :  - file MIDI-Unprocessed_R1_D2-21-22_mid--AUDIO-from_mp3_21_R1_2015_wav--4.npy added to training set.
+2022-08-07 01:02:42 | INFO :  - file MIDI-Unprocessed_20_R1_2006_01-04_ORIG_MID--AUDIO_20_R1_2006_04_Track04_wav.npy added to training set.
+2022-08-07 01:02:43 | INFO :  - file MIDI-Unprocessed_Schubert4-6_MID--AUDIO_09_R2_2018_wav.npy added to training set.
+2022-08-07 01:02:44 | INFO :  - file MIDI-Unprocessed_21_R1_2009_04_ORIG_MID--AUDIO_21_R1_2009_21_R1_2009_04_WAV.npy added to training set.
+2022-08-07 01:02:45 | INFO :  - file ORIG-MIDI_02_7_6_13_Group__MID--AUDIO_08_R1_2013_wav--2.npy added to training set.
+2022-08-07 01:02:46 | INFO :  - file MIDI-Unprocessed_XP_04_R2_2004_01_ORIG_MID--AUDIO_04_R2_2004_02_Track02_wav.npy added to training set.
+2022-08-07 01:02:46 | INFO :  - file MIDI-Unprocessed_12_R1_2011_MID--AUDIO_R1-D4_14_Track14_wav.npy added to training set.
+2022-08-07 01:02:46 | INFO :  - file MIDI-Unprocessed_052_PIANO052_MID--AUDIO-split_07-06-17_Piano-e_3-03_wav--2.npy added to training set.
+2022-08-07 01:02:47 | INFO :  - file ORIG-MIDI_03_7_10_13_Group_MID--AUDIO_15_R3_2013_wav--1.npy added to training set.
+2022-08-07 01:02:47 | INFO :  - file ORIG-MIDI_01_7_7_13_Group__MID--AUDIO_13_R1_2013_wav--4.npy added to training set.
+2022-08-07 01:02:48 | INFO :  - file MIDI-Unprocessed_Recital13-15_MID--AUDIO_15_R1_2018_wav--4.npy added to training set.
+2022-08-07 01:02:48 | INFO :  - file MIDI-Unprocessed_SMF_17_R1_2004_01-03_ORIG_MID--AUDIO_17_R1_2004_02_Track02_wav--1.npy added to training set.
+2022-08-07 01:02:49 | INFO :  - file MIDI-Unprocessed_XP_01_R1_2004_03_ORIG_MID--AUDIO_01_R1_2004_04_Track04_wav.npy added to training set.
+2022-08-07 01:02:49 | INFO :  - file MIDI-Unprocessed_16_R1_2008_01-04_ORIG_MID--AUDIO_16_R1_2008_wav--2.npy added to training set.
+2022-08-07 01:02:50 | INFO :  - file MIDI-Unprocessed_10_R1_2006_01-04_ORIG_MID--AUDIO_10_R1_2006_02_Track02_wav.npy added to training set.
+2022-08-07 01:02:51 | INFO :  - file MIDI-Unprocessed_09_R2_2011_MID--AUDIO_R2-D3_04_Track04_wav.npy added to training set.
+2022-08-07 01:02:51 | INFO :  - file ORIG-MIDI_03_7_6_13_Group__MID--AUDIO_09_R1_2013_wav--1.npy added to training set.
+2022-08-07 01:02:51 | INFO :  - file MIDI-Unprocessed_16_R1_2008_01-04_ORIG_MID--AUDIO_16_R1_2008_wav--4.npy added to training set.
+2022-08-07 01:02:51 | INFO :  - file MIDI-Unprocessed_09_R1_2008_01-05_ORIG_MID--AUDIO_09_R1_2008_wav--5.npy added to training set.
+2022-08-07 01:02:52 | INFO :  - file MIDI-Unprocessed_07_R3_2008_01-05_ORIG_MID--AUDIO_07_R3_2008_wav--2.npy added to training set.
+2022-08-07 01:02:52 | INFO :  - file MIDI-Unprocessed_02_R1_2008_01-05_ORIG_MID--AUDIO_02_R1_2008_wav--1.npy added to training set.
+2022-08-07 01:02:52 | INFO :  - file MIDI-Unprocessed_R1_D2-13-20_mid--AUDIO-from_mp3_14_R1_2015_wav--1.npy added to training set.
+2022-08-07 01:02:52 | INFO :  - file ORIG-MIDI_02_7_6_13_Group__MID--AUDIO_08_R1_2013_wav--1.npy added to training set.
+2022-08-07 01:02:52 | INFO :  - file MIDI-Unprocessed_R1_D2-13-20_mid--AUDIO-from_mp3_20_R1_2015_wav--3.npy added to training set.
+2022-08-07 01:02:53 | INFO :  - file MIDI-Unprocessed_17_R2_2009_01_ORIG_MID--AUDIO_17_R2_2009_17_R2_2009_02_WAV.npy added to training set.
+2022-08-07 01:02:53 | INFO :  - file MIDI-Unprocessed_080_PIANO080_MID--AUDIO-split_07-09-17_Piano-e_1-06_wav--1.npy added to training set.
+2022-08-07 01:02:53 | INFO :  - file MIDI-Unprocessed_25_R2_2011_MID--AUDIO_R2-D6_08_Track08_wav.npy added to training set.
+2022-08-07 01:02:54 | INFO :  - file MIDI-Unprocessed_07_R1_2006_01-04_ORIG_MID--AUDIO_07_R1_2006_02_Track02_wav.npy added to training set.
+2022-08-07 01:02:54 | INFO :  - file MIDI-Unprocessed_SMF_13_01_2004_01-05_ORIG_MID--AUDIO_13_R1_2004_08_Track08_wav.npy added to training set.
+2022-08-07 01:02:54 | INFO :  - file MIDI-UNPROCESSED_21-22_R1_2014_MID--AUDIO_21_R1_2014_wav--4.npy added to training set.
+2022-08-07 01:02:55 | INFO :  - file MIDI-Unprocessed_XP_21_R1_2004_02_ORIG_MID--AUDIO_21_R1_2004_02_Track02_wav.npy added to training set.
+2022-08-07 01:02:55 | INFO :  - file MIDI-Unprocessed_21_R1_2006_01-04_ORIG_MID--AUDIO_21_R1_2006_01_Track01_wav.npy added to training set.
+2022-08-07 01:02:55 | INFO :  - file MIDI-Unprocessed_SMF_17_R1_2004_01-03_ORIG_MID--AUDIO_17_R1_2004_02_Track02_wav--2.npy added to training set.
+2022-08-07 01:02:56 | INFO :  - file MIDI-Unprocessed_04_R3_2008_01-07_ORIG_MID--AUDIO_04_R3_2008_wav--1.npy added to training set.
+2022-08-07 01:02:57 | INFO :  - file MIDI-Unprocessed_05_R1_2009_03-05_ORIG_MID--AUDIO_05_R1_2009_05_R1_2009_03_WAV.npy added to training set.
+2022-08-07 01:02:58 | INFO :  - file MIDI-Unprocessed_062_PIANO062_MID--AUDIO-split_07-07-17_Piano-e_2-07_wav--4.npy added to training set.
+2022-08-07 01:02:59 | INFO :  - file MIDI-Unprocessed_01_R1_2006_01-09_ORIG_MID--AUDIO_01_R1_2006_01_Track01_wav.npy added to training set.
+2022-08-07 01:02:59 | INFO :  - file MIDI-Unprocessed_07_R2_2006_01_ORIG_MID--AUDIO_07_R2_2006_03_Track03_wav.npy added to training set.
+2022-08-07 01:03:00 | INFO :  - file MIDI-Unprocessed_10_R1_2009_01-02_ORIG_MID--AUDIO_10_R1_2009_10_R1_2009_02_WAV.npy added to training set.
+2022-08-07 01:03:00 | INFO :  - file MIDI-Unprocessed_09_R1_2011_MID--AUDIO_R1-D3_12_Track12_wav.npy added to training set.
+2022-08-07 01:03:00 | INFO :  - file MIDI-Unprocessed_SMF_17_R1_2004_01-02_ORIG_MID--AUDIO_20_R2_2004_04_Track04_wav.npy added to training set.
+2022-08-07 01:03:01 | INFO :  - file MIDI-Unprocessed_R1_D1-1-8_mid--AUDIO-from_mp3_01_R1_2015_wav--3.npy added to training set.
+2022-08-07 01:03:01 | INFO :  - file MIDI-Unprocessed_10_R2_2008_01-05_ORIG_MID--AUDIO_10_R2_2008_wav--3.npy added to training set.
+2022-08-07 01:03:01 | INFO :  - file MIDI-Unprocessed_01_R1_2011_MID--AUDIO_R1-D1_03_Track03_wav.npy added to training set.
+2022-08-07 01:03:02 | INFO :  - file MIDI-Unprocessed_Chamber5_MID--AUDIO_18_R3_2018_wav--1.npy added to training set.
+2022-08-07 01:03:03 | INFO :  - file MIDI-Unprocessed_12_R1_2009_01-02_ORIG_MID--AUDIO_12_R1_2009_12_R1_2009_01_WAV.npy added to training set.
+2022-08-07 01:03:03 | INFO :  - file MIDI-Unprocessed_R1_D2-13-20_mid--AUDIO-from_mp3_17_R1_2015_wav--1.npy added to training set.
+2022-08-07 01:03:03 | INFO :  - file MIDI-Unprocessed_24_R1_2011_MID--AUDIO_R1-D9_09_Track09_wav.npy added to training set.
+2022-08-07 01:03:04 | INFO :  - file MIDI-Unprocessed_20_R1_2011_MID--AUDIO_R1-D8_04_Track04_wav.npy added to training set.
+2022-08-07 01:03:04 | INFO :  - file MIDI-Unprocessed_XP_04_R1_2004_01-02_ORIG_MID--AUDIO_04_R1_2004_02_Track02_wav.npy added to training set.
+2022-08-07 01:03:04 | INFO :  - file MIDI-Unprocessed_R1_D2-13-20_mid--AUDIO-from_mp3_14_R1_2015_wav--4.npy added to training set.
+2022-08-07 01:03:04 | INFO :  - file ORIG-MIDI_03_7_8_13_Group__MID--AUDIO_19_R2_2013_wav--3.npy added to training set.
+2022-08-07 01:03:06 | INFO :  - file MIDI-UNPROCESSED_04-07-08-10-12-15-17_R2_2014_MID--AUDIO_17_R2_2014_wav.npy added to training set.
+2022-08-07 01:03:07 | INFO :  - file MIDI-Unprocessed_08_R1_2009_05-06_ORIG_MID--AUDIO_08_R1_2009_08_R1_2009_06_WAV.npy added to training set.
+2022-08-07 01:03:07 | INFO :  - file MIDI-Unprocessed_21_R1_2011_MID--AUDIO_R1-D8_08_Track08_wav.npy added to training set.
+2022-08-07 01:03:07 | INFO :  - file ORIG-MIDI_02_7_7_13_Group__MID--AUDIO_15_R1_2013_wav--3.npy added to training set.
+2022-08-07 01:03:07 | INFO :  - file MIDI-Unprocessed_05_R1_2011_MID--AUDIO_R1-D2_08_Track08_wav.npy added to training set.
+2022-08-07 01:03:08 | INFO :  - file MIDI-Unprocessed_075_PIANO075_MID--AUDIO-split_07-08-17_Piano-e_2-06_wav--1.npy added to training set.
+2022-08-07 01:03:08 | INFO :  - file MIDI-Unprocessed_06_R1_2011_MID--AUDIO_R1-D2_15_Track15_wav.npy added to training set.
+2022-08-07 01:03:08 | INFO :  - file MIDI-Unprocessed_Recital1-3_MID--AUDIO_01_R1_2018_wav--1.npy added to training set.
+2022-08-07 01:03:08 | INFO :  - file MIDI-UNPROCESSED_01-03_R1_2014_MID--AUDIO_03_R1_2014_wav--2.npy added to validation set.
+2022-08-07 01:03:10 | INFO :  - file ORIG-MIDI_01_7_6_13_Group__MID--AUDIO_03_R1_2013_wav--4.npy added to validation set.
+2022-08-07 01:03:11 | INFO :  - file MIDI-Unprocessed_R1_D1-1-8_mid--AUDIO-from_mp3_05_R1_2015_wav--1.npy added to validation set.
+2022-08-07 01:03:12 | INFO :  - file MIDI-Unprocessed_073_PIANO073_MID--AUDIO-split_07-08-17_Piano-e_2-02_wav--4.npy added to validation set.
+2022-08-07 01:03:14 | INFO :  - file MIDI-Unprocessed_08_R1_2006_01-04_ORIG_MID--AUDIO_08_R1_2006_Disk1_02_Track02_wav.npy added to validation set.
+2022-08-07 01:03:15 | INFO :  - file MIDI-Unprocessed_14_R1_2011_MID--AUDIO_R1-D6_02_Track02_wav.npy added to validation set.
+2022-08-07 01:03:17 | INFO :  - file MIDI-Unprocessed_07_R1_2009_04-05_ORIG_MID--AUDIO_07_R1_2009_07_R1_2009_04_WAV.npy added to validation set.
+2022-08-07 01:03:21 | INFO :  - file MIDI-Unprocessed_XP_10_R1_2004_01-02_ORIG_MID--AUDIO_10_R1_2004_02_Track02_wav.npy added to validation set.
+2022-08-07 01:03:21 | INFO :  - file MIDI-Unprocessed_083_PIANO083_MID--AUDIO-split_07-09-17_Piano-e_2_-06_wav--5.npy added to validation set.
+2022-08-07 01:03:22 | INFO :  - file MIDI-Unprocessed_19_R1_2006_01-07_ORIG_MID--AUDIO_19_R1_2006_07_Track07_wav.npy added to validation set.
+2022-08-07 01:03:23 | INFO :  - file MIDI-Unprocessed_XP_19_R1_2004_01-02_ORIG_MID--AUDIO_19_R1_2004_01_Track01_wav.npy added to validation set.
+2022-08-07 01:03:27 | INFO :  - file MIDI-UNPROCESSED_04-05_R1_2014_MID--AUDIO_04_R1_2014_wav--3.npy added to validation set.
+2022-08-07 01:03:28 | INFO :  - file MIDI-Unprocessed_Recital4_MID--AUDIO_04_R1_2018_wav--4.npy added to validation set.
+2022-08-07 01:03:28 | INFO :  - file ORIG-MIDI_02_7_6_13_Group__MID--AUDIO_06_R1_2013_wav--4.npy added to validation set.
+2022-08-07 01:03:29 | INFO :  - file MIDI-Unprocessed_Recital4_MID--AUDIO_04_R1_2018_wav--3.npy added to validation set.
+2022-08-07 01:03:29 | INFO :  - file MIDI-Unprocessed_21_R1_2011_MID--AUDIO_R1-D8_10_Track10_wav.npy added to validation set.
+2022-08-07 01:03:29 | INFO :  - file MIDI-Unprocessed_060_PIANO060_MID--AUDIO-split_07-07-17_Piano-e_2-04_wav--3.npy added to validation set.
+2022-08-07 01:03:29 | INFO :  - file MIDI-Unprocessed_07_R1_2008_01-04_ORIG_MID--AUDIO_07_R1_2008_wav--2.npy added to validation set.
+2022-08-07 01:03:30 | INFO :  - file MIDI-Unprocessed_13_R1_2006_01-06_ORIG_MID--AUDIO_13_R1_2006_05_Track05_wav.npy added to validation set.
+2022-08-07 01:03:32 | INFO :  - file MIDI-Unprocessed_Recital1-3_MID--AUDIO_02_R1_2018_wav--1.npy added to validation set.
+2022-08-07 01:03:32 | INFO :  - file MIDI-Unprocessed_XP_01_R1_2004_04-05_ORIG_MID--AUDIO_01_R1_2004_05_Track05_wav.npy added to validation set.
+2022-08-07 01:03:33 | INFO :  - file MIDI-Unprocessed_05_R1_2008_01-04_ORIG_MID--AUDIO_05_R1_2008_wav--1.npy added to validation set.
+2022-08-07 01:03:33 | INFO :  - file MIDI-UNPROCESSED_19-20_R1_2014_MID--AUDIO_19_R1_2014_wav--8.npy added to validation set.
+2022-08-07 01:03:33 | INFO :  - file MIDI-Unprocessed_XP_03_R1_2004_01-02_ORIG_MID--AUDIO_03_R1_2004_01_Track01_wav.npy added to validation set.
+2022-08-07 01:03:33 | INFO :  - file ORIG-MIDI_02_7_6_13_Group__MID--AUDIO_08_R1_2013_wav--5.npy added to validation set.
+2022-08-07 01:03:34 | INFO :  - file MIDI-Unprocessed_12_R3_2008_01-04_ORIG_MID--AUDIO_12_R3_2008_wav--3.npy added to validation set.
+2022-08-07 01:03:34 | INFO :  - file ORIG-MIDI_01_7_7_13_Group__MID--AUDIO_11_R1_2013_wav--1.npy added to validation set.
+2022-08-07 01:03:34 | INFO :  - file MIDI-Unprocessed_18_R1_2011_MID--AUDIO_R1-D7_07_Track07_wav.npy added to validation set.
+2022-08-07 01:03:34 | INFO :  - file MIDI-Unprocessed_056_PIANO056_MID--AUDIO-split_07-07-17_Piano-e_1-05_wav--1.npy added to validation set.
+2022-08-07 01:03:35 | INFO :  - file MIDI-Unprocessed_09_R1_2008_01-05_ORIG_MID--AUDIO_09_R1_2008_wav--2.npy added to validation set.
+2022-08-07 01:03:35 | INFO :  - file MIDI-Unprocessed_16_R1_2006_01-04_ORIG_MID--AUDIO_16_R1_2006_02_Track02_wav.npy added to validation set.
+2022-08-07 01:03:35 | INFO :  - file MIDI-Unprocessed_044_PIANO044_MID--AUDIO-split_07-06-17_Piano-e_1-04_wav--2.npy added to validation set.
+2022-08-07 01:03:36 | INFO :  - file MIDI-Unprocessed_08_R1_2009_01-04_ORIG_MID--AUDIO_08_R1_2009_08_R1_2009_04_WAV.npy added to validation set.
+2022-08-07 01:03:36 | INFO :  - file MIDI-Unprocessed_01_R1_2009_01-04_ORIG_MID--AUDIO_01_R1_2009_01_R1_2009_04_WAV.npy added to validation set.
+2022-08-07 01:03:37 | INFO :  - file MIDI-Unprocessed_XP_15_R1_2004_03_ORIG_MID--AUDIO_15_R1_2004_03_Track03_wav.npy added to validation set.
+2022-08-07 01:03:38 | INFO :  - file MIDI-Unprocessed_07_R1_2006_01-04_ORIG_MID--AUDIO_07_R1_2006_04_Track04_wav.npy added to validation set.
+2022-08-07 01:03:39 | INFO :  - file MIDI-Unprocessed_04_R2_2008_01-04_ORIG_MID--AUDIO_04_R2_2008_wav--3.npy added to validation set.
+2022-08-07 01:03:39 | INFO :  - file MIDI-Unprocessed_03_R1_2006_01-05_ORIG_MID--AUDIO_03_R1_2006_04_Track04_wav.npy added to validation set.
+2022-08-07 01:03:40 | INFO :  - file MIDI-Unprocessed_02_R2_2011_MID--AUDIO_R2-D1_02_Track02_wav.npy added to validation set.
+2022-08-07 01:03:40 | INFO :  - file MIDI-Unprocessed_19_R1_2011_MID--AUDIO_R1-D7_15_Track15_wav.npy added to validation set.
+2022-08-07 01:03:41 | INFO :  - file MIDI-Unprocessed_17_R1_2008_01-04_ORIG_MID--AUDIO_17_R1_2008_wav--2.npy added to validation set.
+2022-08-07 01:03:41 | INFO :  - file ORIG-MIDI_01_7_7_13_Group__MID--AUDIO_11_R1_2013_wav--4.npy added to validation set.
+2022-08-07 01:03:41 | INFO :  - file MIDI-Unprocessed_08_R1_2008_01-05_ORIG_MID--AUDIO_08_R1_2008_wav--2.npy added to validation set.
+2022-08-07 01:03:41 | INFO :  - file MIDI-Unprocessed_XP_04_R1_2004_03-05_ORIG_MID--AUDIO_04_R1_2004_06_Track06_wav.npy added to validation set.
+2022-08-07 01:03:41 | INFO :  - file MIDI-Unprocessed_11_R1_2009_06-09_ORIG_MID--AUDIO_11_R1_2009_11_R1_2009_07_WAV.npy added to validation set.
+2022-08-07 01:03:42 | INFO :  - file MIDI-Unprocessed_057_PIANO057_MID--AUDIO-split_07-07-17_Piano-e_1-07_wav--3.npy added to validation set.
+2022-08-07 01:03:42 | INFO :  - file MIDI-Unprocessed_05_R1_2008_01-04_ORIG_MID--AUDIO_05_R1_2008_wav--3.npy added to validation set.
+2022-08-07 01:03:42 | INFO :  - file MIDI-Unprocessed_12_R1_2008_01-04_ORIG_MID--AUDIO_12_R1_2008_wav--1.npy added to validation set.
+2022-08-07 01:03:43 | INFO :  - file MIDI-Unprocessed_04_R3_2008_01-07_ORIG_MID--AUDIO_04_R3_2008_wav--6.npy added to validation set.
+2022-08-07 01:03:43 | INFO :  - file MIDI-Unprocessed_R2_D1-2-3-6-7-8-11_mid--AUDIO-from_mp3_03_R2_2015_wav--1.npy added to validation set.
+2022-08-07 01:03:43 | INFO :  - file ORIG-MIDI_01_7_6_13_Group__MID--AUDIO_01_R1_2013_wav--4.npy added to validation set.
+2022-08-07 01:03:43 | INFO : Training set & loader generated, length 44083
+2022-08-07 01:03:43 | INFO : Validation set & loader generated, length 7637
+2022-08-07 01:03:43 | INFO : 
+ 
+ ###################### START TRAINING ###################### 
+
+2022-08-07 01:25:05 | INFO : Epoch #0 finished. Train Loss: 0.0163, Val Loss: 0.0157 with lr: 0.01000
+2022-08-07 01:25:05 | INFO :   .... model of epoch 0 saved.
+2022-08-07 01:46:20 | INFO : Epoch #1 finished. Train Loss: 0.0143, Val Loss: 0.0139 with lr: 0.01000
+2022-08-07 01:46:20 | INFO :   .... model of epoch #1 saved.
+2022-08-07 02:07:32 | INFO : Epoch #2 finished. Train Loss: 0.0138, Val Loss: 0.0134 with lr: 0.01000
+2022-08-07 02:07:32 | INFO :   .... model of epoch #2 saved.
+2022-08-07 02:28:54 | INFO : Epoch #3 finished. Train Loss: 0.0134, Val Loss: 0.0128 with lr: 0.01000
+2022-08-07 02:28:54 | INFO :   .... model of epoch #3 saved.
+2022-08-07 02:50:19 | INFO : Epoch #4 finished. Train Loss: 0.0132, Val Loss: 0.0130 with lr: 0.01000
+2022-08-07 03:11:32 | INFO : Epoch #5 finished. Train Loss: 0.0130, Val Loss: 0.0121 with lr: 0.01000
+2022-08-07 03:11:32 | INFO :   .... model of epoch #5 saved.
+2022-08-07 03:32:53 | INFO : Epoch #6 finished. Train Loss: 0.0129, Val Loss: 0.0126 with lr: 0.01000
+2022-08-07 03:54:06 | INFO : Epoch #7 finished. Train Loss: 0.0128, Val Loss: 0.0119 with lr: 0.01000
+2022-08-07 03:54:06 | INFO :   .... model of epoch #7 saved.
+2022-08-07 04:15:18 | INFO : Epoch #8 finished. Train Loss: 0.0127, Val Loss: 0.0123 with lr: 0.01000
+2022-08-07 04:36:38 | INFO : Epoch #9 finished. Train Loss: 0.0126, Val Loss: 0.0121 with lr: 0.01000
+2022-08-07 04:57:50 | INFO : Epoch #10 finished. Train Loss: 0.0125, Val Loss: 0.0122 with lr: 0.01000
+2022-08-07 05:19:02 | INFO : Epoch #11 finished. Train Loss: 0.0124, Val Loss: 0.0125 with lr: 0.01000
+2022-08-07 05:40:09 | INFO : Epoch #12 finished. Train Loss: 0.0123, Val Loss: 0.0122 with lr: 0.01000
+2022-08-07 06:01:26 | INFO : Epoch #13 finished. Train Loss: 0.0123, Val Loss: 0.0122 with lr: 0.01000
+2022-08-07 06:22:38 | INFO : Epoch #14 finished. Train Loss: 0.0121, Val Loss: 0.0121 with lr: 0.00500
+2022-08-07 06:43:50 | INFO : Epoch #15 finished. Train Loss: 0.0121, Val Loss: 0.0119 with lr: 0.00500
+2022-08-07 06:43:50 | INFO :   .... model of epoch #15 saved.
+2022-08-07 07:05:04 | INFO : Epoch #16 finished. Train Loss: 0.0120, Val Loss: 0.0119 with lr: 0.00500
+2022-08-07 07:26:03 | INFO : Epoch #17 finished. Train Loss: 0.0120, Val Loss: 0.0121 with lr: 0.00500
+2022-08-07 07:47:12 | INFO : Epoch #18 finished. Train Loss: 0.0120, Val Loss: 0.0120 with lr: 0.00500
+2022-08-07 08:08:27 | INFO : Epoch #19 finished. Train Loss: 0.0120, Val Loss: 0.0117 with lr: 0.00500
+2022-08-07 08:08:27 | INFO :   .... model of epoch #19 saved.
+2022-08-07 08:29:31 | INFO : Epoch #20 finished. Train Loss: 0.0119, Val Loss: 0.0120 with lr: 0.00500
+2022-08-07 08:50:44 | INFO : Epoch #21 finished. Train Loss: 0.0119, Val Loss: 0.0117 with lr: 0.00500
+2022-08-07 08:50:44 | INFO :   .... model of epoch #21 saved.
+2022-08-07 09:11:59 | INFO : Epoch #22 finished. Train Loss: 0.0119, Val Loss: 0.0117 with lr: 0.00500
+2022-08-07 09:33:14 | INFO : Epoch #23 finished. Train Loss: 0.0119, Val Loss: 0.0118 with lr: 0.00500
+2022-08-07 09:54:26 | INFO : Epoch #24 finished. Train Loss: 0.0119, Val Loss: 0.0118 with lr: 0.00500
+2022-08-07 10:15:43 | INFO : Epoch #25 finished. Train Loss: 0.0118, Val Loss: 0.0114 with lr: 0.00500
+2022-08-07 10:15:43 | INFO :   .... model of epoch #25 saved.
+2022-08-07 10:36:59 | INFO : Epoch #26 finished. Train Loss: 0.0118, Val Loss: 0.0119 with lr: 0.00500
+2022-08-07 10:58:13 | INFO : Epoch #27 finished. Train Loss: 0.0118, Val Loss: 0.0116 with lr: 0.00500
+2022-08-07 11:19:23 | INFO : Epoch #28 finished. Train Loss: 0.0118, Val Loss: 0.0115 with lr: 0.00500
+2022-08-07 11:40:37 | INFO : Epoch #29 finished. Train Loss: 0.0118, Val Loss: 0.0116 with lr: 0.00500
+2022-08-07 12:01:51 | INFO : Epoch #30 finished. Train Loss: 0.0118, Val Loss: 0.0116 with lr: 0.00500
+2022-08-07 12:23:04 | INFO : Epoch #31 finished. Train Loss: 0.0117, Val Loss: 0.0116 with lr: 0.00500
+2022-08-07 12:44:16 | INFO : Epoch #32 finished. Train Loss: 0.0117, Val Loss: 0.0115 with lr: 0.00250
+2022-08-07 13:05:32 | INFO : Epoch #33 finished. Train Loss: 0.0116, Val Loss: 0.0115 with lr: 0.00250
+2022-08-07 13:26:45 | INFO : Epoch #34 finished. Train Loss: 0.0116, Val Loss: 0.0114 with lr: 0.00250
+2022-08-07 13:47:58 | INFO : Epoch #35 finished. Train Loss: 0.0116, Val Loss: 0.0113 with lr: 0.00250
+2022-08-07 13:47:58 | INFO :   .... model of epoch #35 saved.
+2022-08-07 14:09:10 | INFO : Epoch #36 finished. Train Loss: 0.0116, Val Loss: 0.0114 with lr: 0.00250
+2022-08-07 14:30:30 | INFO : Epoch #37 finished. Train Loss: 0.0116, Val Loss: 0.0115 with lr: 0.00250
+2022-08-07 14:51:39 | INFO : Epoch #38 finished. Train Loss: 0.0116, Val Loss: 0.0114 with lr: 0.00250
+2022-08-07 15:12:51 | INFO : Epoch #39 finished. Train Loss: 0.0116, Val Loss: 0.0113 with lr: 0.00250
+2022-08-07 15:34:05 | INFO : Epoch #40 finished. Train Loss: 0.0116, Val Loss: 0.0112 with lr: 0.00250
+2022-08-07 15:34:05 | INFO :   .... model of epoch #40 saved.
+2022-08-07 15:55:19 | INFO : Epoch #41 finished. Train Loss: 0.0116, Val Loss: 0.0113 with lr: 0.00250
+2022-08-07 16:16:41 | INFO : Epoch #42 finished. Train Loss: 0.0116, Val Loss: 0.0113 with lr: 0.00250
+2022-08-07 16:37:54 | INFO : Epoch #43 finished. Train Loss: 0.0116, Val Loss: 0.0114 with lr: 0.00250
+2022-08-07 16:59:11 | INFO : Epoch #44 finished. Train Loss: 0.0116, Val Loss: 0.0115 with lr: 0.00250
+2022-08-07 17:20:56 | INFO : Epoch #45 finished. Train Loss: 0.0116, Val Loss: 0.0112 with lr: 0.00250
+2022-08-07 17:20:56 | INFO :   .... model of epoch #45 saved.
+2022-08-07 17:42:15 | INFO : Epoch #46 finished. Train Loss: 0.0116, Val Loss: 0.0114 with lr: 0.00250
+2022-08-07 18:03:27 | INFO : Epoch #47 finished. Train Loss: 0.0115, Val Loss: 0.0111 with lr: 0.00250
+2022-08-07 18:03:27 | INFO :   .... model of epoch #47 saved.
+2022-08-07 18:24:32 | INFO : Epoch #48 finished. Train Loss: 0.0115, Val Loss: 0.0112 with lr: 0.00250
+2022-08-07 18:45:50 | INFO : Epoch #49 finished. Train Loss: 0.0115, Val Loss: 0.0110 with lr: 0.00250
+2022-08-07 18:45:50 | INFO :   .... model of epoch #49 saved.
+2022-08-07 19:06:58 | INFO : Epoch #50 finished. Train Loss: 0.0115, Val Loss: 0.0110 with lr: 0.00250
+2022-08-07 19:06:58 | INFO :   .... model of epoch #50 saved.
+2022-08-07 19:28:07 | INFO : Epoch #51 finished. Train Loss: 0.0115, Val Loss: 0.0112 with lr: 0.00250
+2022-08-07 19:49:17 | INFO : Epoch #52 finished. Train Loss: 0.0115, Val Loss: 0.0112 with lr: 0.00250
+2022-08-07 20:10:27 | INFO : Epoch #53 finished. Train Loss: 0.0115, Val Loss: 0.0112 with lr: 0.00250
+2022-08-07 20:31:40 | INFO : Epoch #54 finished. Train Loss: 0.0115, Val Loss: 0.0111 with lr: 0.00250
+2022-08-07 20:52:53 | INFO : Epoch #55 finished. Train Loss: 0.0115, Val Loss: 0.0114 with lr: 0.00250
+2022-08-07 21:14:06 | INFO : Epoch #56 finished. Train Loss: 0.0115, Val Loss: 0.0111 with lr: 0.00250
+2022-08-07 21:35:22 | INFO : Epoch #57 finished. Train Loss: 0.0114, Val Loss: 0.0111 with lr: 0.00125
+2022-08-07 21:56:36 | INFO : Epoch #58 finished. Train Loss: 0.0114, Val Loss: 0.0111 with lr: 0.00125
+2022-08-07 22:17:48 | INFO : Epoch #59 finished. Train Loss: 0.0114, Val Loss: 0.0111 with lr: 0.00125
+2022-08-07 22:39:01 | INFO : Epoch #60 finished. Train Loss: 0.0114, Val Loss: 0.0111 with lr: 0.00125
+2022-08-07 23:00:02 | INFO : Epoch #61 finished. Train Loss: 0.0114, Val Loss: 0.0112 with lr: 0.00125
+2022-08-07 23:21:19 | INFO : Epoch #62 finished. Train Loss: 0.0114, Val Loss: 0.0112 with lr: 0.00125
+2022-08-07 23:21:19 | INFO :  ### trained model saved in /home/mk@alabsad.fau.de/Repos/multipitch_softdtw/models/mctcwe_crossdataset_mediummodel.pt 
+
+2022-08-07 23:21:19 | INFO : 
+ 
+ ###################### START TESTING ###################### 
+
+2022-08-07 23:21:28 | INFO : file Schubert_D911-01_TR99.npy tested. Cosine sim: 0.7808388602765187
+2022-08-07 23:21:31 | INFO : file Schubert_D911-18_SC06.npy tested. Cosine sim: 0.7356530339734427
+2022-08-07 23:21:35 | INFO : file Schubert_D911-02_AL98.npy tested. Cosine sim: 0.6549584979214436
+2022-08-07 23:21:38 | INFO : file Schubert_D911-22_SC06.npy tested. Cosine sim: 0.7799949495260387
+2022-08-07 23:21:41 | INFO : file Schubert_D911-19_QU98.npy tested. Cosine sim: 0.6224021400528307
+2022-08-07 23:21:46 | INFO : file Schubert_D911-03_TR99.npy tested. Cosine sim: 0.7605005279553613
+2022-08-07 23:21:50 | INFO : file Schubert_D911-14_FI55.npy tested. Cosine sim: 0.6951704122912272
+2022-08-07 23:21:53 | INFO : file Schubert_D911-03_FI55.npy tested. Cosine sim: 0.7637914373193174
+2022-08-07 23:21:58 | INFO : file Schubert_D911-06_TR99.npy tested. Cosine sim: 0.7617466996725449
+2022-08-07 23:22:03 | INFO : file Schubert_D911-10_TR99.npy tested. Cosine sim: 0.7599394236596635
+2022-08-07 23:22:07 | INFO : file Schubert_D911-02_TR99.npy tested. Cosine sim: 0.6536245990669114
+2022-08-07 23:22:12 | INFO : file Schubert_D911-01_HU33.npy tested. Cosine sim: 0.7317019647817984
+2022-08-07 23:22:16 | INFO : file Schubert_D911-24_FI66.npy tested. Cosine sim: 0.7572386504007308
+2022-08-07 23:22:21 | INFO : file Schubert_D911-06_AL98.npy tested. Cosine sim: 0.8119106723447319
+2022-08-07 23:22:25 | INFO : file Schubert_D911-23_FI66.npy tested. Cosine sim: 0.7628227361631164
+2022-08-07 23:22:29 | INFO : file Schubert_D911-04_QU98.npy tested. Cosine sim: 0.5166677583611011
+2022-08-07 23:22:33 | INFO : file Schubert_D911-03_HU33.npy tested. Cosine sim: 0.7422444869530921
+2022-08-07 23:22:36 | INFO : file Schubert_D911-13_AL98.npy tested. Cosine sim: 0.8070315436177448
+2022-08-07 23:22:39 | INFO : file Schubert_D911-22_FI80.npy tested. Cosine sim: 0.7310624625910824
+2022-08-07 23:22:45 | INFO : file Schubert_D911-01_FI66.npy tested. Cosine sim: 0.7376795451862413
+2022-08-07 23:22:48 | INFO : file Schubert_D911-22_TR99.npy tested. Cosine sim: 0.7287813548655163
+2022-08-07 23:22:52 | INFO : file Schubert_D911-14_HU33.npy tested. Cosine sim: 0.6951635319037932
+2022-08-07 23:22:58 | INFO : file Schubert_D911-01_SC06.npy tested. Cosine sim: 0.7880741946716529
+2022-08-07 23:23:02 | INFO : file Schubert_D911-24_SC06.npy tested. Cosine sim: 0.8131084630488291
+2022-08-07 23:23:06 | INFO : file Schubert_D911-14_SC06.npy tested. Cosine sim: 0.7268759612747465
+2022-08-07 23:23:10 | INFO : file Schubert_D911-12_FI66.npy tested. Cosine sim: 0.7299945510249829
+2022-08-07 23:23:15 | INFO : file Schubert_D911-07_FI55.npy tested. Cosine sim: 0.7131933124769166
+2022-08-07 23:23:20 | INFO : file Schubert_D911-05_FI80.npy tested. Cosine sim: 0.7247575207305292
+2022-08-07 23:23:25 | INFO : file Schubert_D911-01_FI55.npy tested. Cosine sim: 0.7510176765849531
+2022-08-07 23:23:29 | INFO : file Schubert_D911-02_SC06.npy tested. Cosine sim: 0.6457605645329809
+2022-08-07 23:23:33 | INFO : file Schubert_D911-13_SC06.npy tested. Cosine sim: 0.7707537515900889
+2022-08-07 23:23:36 | INFO : file Schubert_D911-15_OL06.npy tested. Cosine sim: 0.7153693319022578
+2022-08-07 23:23:40 | INFO : file Schubert_D911-22_FI55.npy tested. Cosine sim: 0.7654653979306214
+2022-08-07 23:23:44 | INFO : file Schubert_D911-07_FI80.npy tested. Cosine sim: 0.7268999215289051
+2022-08-07 23:23:49 | INFO : file Schubert_D911-11_HU33.npy tested. Cosine sim: 0.6514144382568665
+2022-08-07 23:23:54 | INFO : file Schubert_D911-14_OL06.npy tested. Cosine sim: 0.676096104252186
+2022-08-07 23:23:58 | INFO : file Schubert_D911-16_FI55.npy tested. Cosine sim: 0.6973118090295649
+2022-08-07 23:24:03 | INFO : file Schubert_D911-11_AL98.npy tested. Cosine sim: 0.7171915957108094
+2022-08-07 23:24:06 | INFO : file Schubert_D911-22_QU98.npy tested. Cosine sim: 0.6372986736302858
+2022-08-07 23:24:10 | INFO : file Schubert_D911-08_FI55.npy tested. Cosine sim: 0.5771896054509161
+2022-08-07 23:24:15 | INFO : file Schubert_D911-05_HU33.npy tested. Cosine sim: 0.6710123753447402
+2022-08-07 23:24:20 | INFO : file Schubert_D911-04_HU33.npy tested. Cosine sim: 0.627934235567849
+2022-08-07 23:24:23 | INFO : file Schubert_D911-15_AL98.npy tested. Cosine sim: 0.7061769498187157
+2022-08-07 23:24:28 | INFO : file Schubert_D911-04_TR99.npy tested. Cosine sim: 0.5857770560750867
+2022-08-07 23:24:32 | INFO : file Schubert_D911-16_FI80.npy tested. Cosine sim: 0.6649749589311001
+2022-08-07 23:24:36 | INFO : file Schubert_D911-03_SC06.npy tested. Cosine sim: 0.7324440667851009
+2022-08-07 23:24:40 | INFO : file Schubert_D911-23_TR99.npy tested. Cosine sim: 0.7835580526095968
+2022-08-07 23:24:44 | INFO : file Schubert_D911-09_SC06.npy tested. Cosine sim: 0.698479627961579
+2022-08-07 23:24:48 | INFO : file Schubert_D911-04_FI80.npy tested. Cosine sim: 0.5566254793358983
+2022-08-07 23:24:52 | INFO : file Schubert_D911-19_HU33.npy tested. Cosine sim: 0.5734985825334377
+2022-08-07 23:24:56 | INFO : file Schubert_D911-14_TR99.npy tested. Cosine sim: 0.6595520199731686
+2022-08-07 23:25:01 | INFO : file Schubert_D911-17_FI80.npy tested. Cosine sim: 0.6642292013929358
+2022-08-07 23:25:05 | INFO : file Schubert_D911-12_AL98.npy tested. Cosine sim: 0.7292719564612652
+2022-08-07 23:25:10 | INFO : file Schubert_D911-20_SC06.npy tested. Cosine sim: 0.7801147461091784
+2022-08-07 23:25:15 | INFO : file Schubert_D911-23_HU33.npy tested. Cosine sim: 0.7430026348254313
+2022-08-07 23:25:18 | INFO : file Schubert_D911-18_OL06.npy tested. Cosine sim: 0.7293461583106469
+2022-08-07 23:25:22 | INFO : file Schubert_D911-14_FI66.npy tested. Cosine sim: 0.6922338634657302
+2022-08-07 23:25:27 | INFO : file Schubert_D911-12_SC06.npy tested. Cosine sim: 0.7147343158137907
+2022-08-07 23:25:30 | INFO : file Schubert_D911-18_HU33.npy tested. Cosine sim: 0.7314333673729713
+2022-08-07 23:25:34 | INFO : file Schubert_D911-12_QU98.npy tested. Cosine sim: 0.6668791626988403
+2022-08-07 23:25:40 | INFO : file Schubert_D911-05_TR99.npy tested. Cosine sim: 0.7044779901939261
+2022-08-07 23:25:44 | INFO : file Schubert_D911-10_AL98.npy tested. Cosine sim: 0.7976954568718091
+2022-08-07 23:25:49 | INFO : file Schubert_D911-17_FI55.npy tested. Cosine sim: 0.677197462443367
+2022-08-07 23:25:53 | INFO : file Schubert_D911-19_FI55.npy tested. Cosine sim: 0.7126255680828141
+2022-08-07 23:25:58 | INFO : file Schubert_D911-06_FI80.npy tested. Cosine sim: 0.7944393908010899
+2022-08-07 23:26:02 | INFO : file Schubert_D911-17_QU98.npy tested. Cosine sim: 0.5805665584731279
+2022-08-07 23:26:07 | INFO : file Schubert_D911-06_FI66.npy tested. Cosine sim: 0.7431147250394301
+2022-08-07 23:26:12 | INFO : file Schubert_D911-21_OL06.npy tested. Cosine sim: 0.769228667454515
+2022-08-07 23:26:17 | INFO : file Schubert_D911-20_OL06.npy tested. Cosine sim: 0.7615167621509956
+2022-08-07 23:26:22 | INFO : file Schubert_D911-16_OL06.npy tested. Cosine sim: 0.7104282803407432
+2022-08-07 23:26:26 | INFO : file Schubert_D911-09_QU98.npy tested. Cosine sim: 0.5422885992376446
+2022-08-07 23:26:31 | INFO : file Schubert_D911-20_TR99.npy tested. Cosine sim: 0.7599136080421699
+2022-08-07 23:26:35 | INFO : file Schubert_D911-17_OL06.npy tested. Cosine sim: 0.6555873601549301
+2022-08-07 23:26:39 | INFO : file Schubert_D911-02_HU33.npy tested. Cosine sim: 0.6903716885898702
+2022-08-07 23:26:46 | INFO : file Schubert_D911-01_OL06.npy tested. Cosine sim: 0.7932355870792543
+2022-08-07 23:26:52 | INFO : file Schubert_D911-05_FI55.npy tested. Cosine sim: 0.7030064239854112
+2022-08-07 23:26:55 | INFO : file Schubert_D911-18_TR99.npy tested. Cosine sim: 0.7217417776489234
+2022-08-07 23:27:00 | INFO : file Schubert_D911-07_FI66.npy tested. Cosine sim: 0.6861333654660279
+2022-08-07 23:27:04 | INFO : file Schubert_D911-12_HU33.npy tested. Cosine sim: 0.6760657695940763
+2022-08-07 23:27:08 | INFO : file Schubert_D911-22_FI66.npy tested. Cosine sim: 0.6915642296075282
+2022-08-07 23:27:12 | INFO : file Schubert_D911-03_FI66.npy tested. Cosine sim: 0.7219155373448851
+2022-08-07 23:27:17 | INFO : file Schubert_D911-07_TR99.npy tested. Cosine sim: 0.6878787366519599
+2022-08-07 23:27:22 | INFO : file Schubert_D911-05_FI66.npy tested. Cosine sim: 0.6950539890689055
+2022-08-07 23:27:27 | INFO : file Schubert_D911-17_TR99.npy tested. Cosine sim: 0.6583107489015988
+2022-08-07 23:27:30 | INFO : file Schubert_D911-22_OL06.npy tested. Cosine sim: 0.743987067737108
+2022-08-07 23:27:36 | INFO : file Schubert_D911-06_FI55.npy tested. Cosine sim: 0.7536742788152488
+2022-08-07 23:27:41 | INFO : file Schubert_D911-07_OL06.npy tested. Cosine sim: 0.7439044810193739
+2022-08-07 23:27:47 | INFO : file Schubert_D911-01_AL98.npy tested. Cosine sim: 0.8263275922023786
+2022-08-07 23:27:51 | INFO : file Schubert_D911-16_TR99.npy tested. Cosine sim: 0.6271431383566738
+2022-08-07 23:27:56 | INFO : file Schubert_D911-21_FI66.npy tested. Cosine sim: 0.7354025287342134
+2022-08-07 23:28:01 | INFO : file Schubert_D911-05_OL06.npy tested. Cosine sim: 0.7117278633921104
+2022-08-07 23:28:05 | INFO : file Schubert_D911-03_FI80.npy tested. Cosine sim: 0.7707335903655278
+2022-08-07 23:28:10 | INFO : file Schubert_D911-05_SC06.npy tested. Cosine sim: 0.6823100838475008
+2022-08-07 23:28:15 | INFO : file Schubert_D911-13_FI55.npy tested. Cosine sim: 0.7535416053871746
+2022-08-07 23:28:19 | INFO : file Schubert_D911-10_OL06.npy tested. Cosine sim: 0.7790179850704276
+2022-08-07 23:28:23 | INFO : file Schubert_D911-23_AL98.npy tested. Cosine sim: 0.7983902818821926
+2022-08-07 23:28:27 | INFO : file Schubert_D911-24_AL98.npy tested. Cosine sim: 0.7755211820916318
+2022-08-07 23:28:31 | INFO : file Schubert_D911-16_SC06.npy tested. Cosine sim: 0.6716818948098274
+2022-08-07 23:28:35 | INFO : file Schubert_D911-08_AL98.npy tested. Cosine sim: 0.6054905722400662
+2022-08-07 23:28:39 | INFO : file Schubert_D911-09_OL06.npy tested. Cosine sim: 0.6936625027861271
+2022-08-07 23:28:43 | INFO : file Schubert_D911-21_HU33.npy tested. Cosine sim: 0.7503482255055619
+2022-08-07 23:28:48 | INFO : file Schubert_D911-13_TR99.npy tested. Cosine sim: 0.7906159148495968
+2022-08-07 23:28:51 | INFO : file Schubert_D911-02_FI80.npy tested. Cosine sim: 0.6287875391711124
+2022-08-07 23:28:55 | INFO : file Schubert_D911-13_HU33.npy tested. Cosine sim: 0.7557007684942301
+2022-08-07 23:28:59 | INFO : file Schubert_D911-19_FI80.npy tested. Cosine sim: 0.7593941606121403
+2022-08-07 23:29:03 | INFO : file Schubert_D911-19_SC06.npy tested. Cosine sim: 0.7098473914288693
+2022-08-07 23:29:07 | INFO : file Schubert_D911-12_FI55.npy tested. Cosine sim: 0.7371391171509563
+2022-08-07 23:29:11 | INFO : file Schubert_D911-12_TR99.npy tested. Cosine sim: 0.7304602132714796
+2022-08-07 23:29:15 | INFO : file Schubert_D911-09_FI66.npy tested. Cosine sim: 0.6498698820021285
+2022-08-07 23:29:19 | INFO : file Schubert_D911-03_QU98.npy tested. Cosine sim: 0.5946700120912263
+2022-08-07 23:29:22 | INFO : file Schubert_D911-18_FI80.npy tested. Cosine sim: 0.703722361566285
+2022-08-07 23:29:26 | INFO : file Schubert_D911-19_AL98.npy tested. Cosine sim: 0.7643668668562659
+2022-08-07 23:29:29 | INFO : file Schubert_D911-18_AL98.npy tested. Cosine sim: 0.7449685885023913
+2022-08-07 23:29:34 | INFO : file Schubert_D911-04_SC06.npy tested. Cosine sim: 0.5918302781798405
+2022-08-07 23:29:38 | INFO : file Schubert_D911-09_TR99.npy tested. Cosine sim: 0.6733110893391467
+2022-08-07 23:29:43 | INFO : file Schubert_D911-21_QU98.npy tested. Cosine sim: 0.6351217211814489
+2022-08-07 23:29:49 | INFO : file Schubert_D911-05_QU98.npy tested. Cosine sim: 0.6355674408909044
+2022-08-07 23:29:54 | INFO : file Schubert_D911-11_OL06.npy tested. Cosine sim: 0.6868714761075312
+2022-08-07 23:29:59 | INFO : file Schubert_D911-21_FI80.npy tested. Cosine sim: 0.791979210006432
+2022-08-07 23:30:03 | INFO : file Schubert_D911-02_OL06.npy tested. Cosine sim: 0.6920619527036083
+2022-08-07 23:30:07 | INFO : file Schubert_D911-07_QU98.npy tested. Cosine sim: 0.5926228138192657
+2022-08-07 23:30:12 | INFO : file Schubert_D911-04_FI55.npy tested. Cosine sim: 0.6424643987165007
+2022-08-07 23:30:16 | INFO : file Schubert_D911-13_QU98.npy tested. Cosine sim: 0.6930047731202013
+2022-08-07 23:30:20 | INFO : file Schubert_D911-08_FI80.npy tested. Cosine sim: 0.5804462273198243
+2022-08-07 23:30:24 | INFO : file Schubert_D911-09_FI80.npy tested. Cosine sim: 0.6868417633429514
+2022-08-07 23:30:29 | INFO : file Schubert_D911-24_FI55.npy tested. Cosine sim: 0.7891333297000992
+2022-08-07 23:30:33 | INFO : file Schubert_D911-10_FI66.npy tested. Cosine sim: 0.7535683467288473
+2022-08-07 23:30:37 | INFO : file Schubert_D911-22_AL98.npy tested. Cosine sim: 0.7635494273811897
+2022-08-07 23:30:41 | INFO : file Schubert_D911-09_HU33.npy tested. Cosine sim: 0.653011637237965
+2022-08-07 23:30:46 | INFO : file Schubert_D911-20_FI80.npy tested. Cosine sim: 0.7761167107125185
+2022-08-07 23:30:51 | INFO : file Schubert_D911-20_FI66.npy tested. Cosine sim: 0.7429637040730533
+2022-08-07 23:30:56 | INFO : file Schubert_D911-20_HU33.npy tested. Cosine sim: 0.7339143674450094
+2022-08-07 23:31:01 | INFO : file Schubert_D911-06_SC06.npy tested. Cosine sim: 0.7827819500913318
+2022-08-07 23:31:05 | INFO : file Schubert_D911-14_QU98.npy tested. Cosine sim: 0.6219783097349911
+2022-08-07 23:31:09 | INFO : file Schubert_D911-23_QU98.npy tested. Cosine sim: 0.7330535633619163
+2022-08-07 23:31:14 | INFO : file Schubert_D911-15_FI80.npy tested. Cosine sim: 0.7035564567740532
+2022-08-07 23:31:18 | INFO : file Schubert_D911-15_FI55.npy tested. Cosine sim: 0.7027671415979734
+2022-08-07 23:31:21 | INFO : file Schubert_D911-19_FI66.npy tested. Cosine sim: 0.7067302899432728
+2022-08-07 23:31:24 | INFO : file Schubert_D911-18_FI55.npy tested. Cosine sim: 0.6925807963849719
+2022-08-07 23:31:29 | INFO : file Schubert_D911-24_QU98.npy tested. Cosine sim: 0.6767363277073537
+2022-08-07 23:31:34 | INFO : file Schubert_D911-11_TR99.npy tested. Cosine sim: 0.709638099880813
+2022-08-07 23:31:38 | INFO : file Schubert_D911-24_OL06.npy tested. Cosine sim: 0.7663262075100294
+2022-08-07 23:31:42 | INFO : file Schubert_D911-13_FI80.npy tested. Cosine sim: 0.7944421516666482
+2022-08-07 23:31:46 | INFO : file Schubert_D911-15_HU33.npy tested. Cosine sim: 0.6808255930077824
+2022-08-07 23:31:50 | INFO : file Schubert_D911-19_OL06.npy tested. Cosine sim: 0.7073909468392332
+2022-08-07 23:31:54 | INFO : file Schubert_D911-02_FI55.npy tested. Cosine sim: 0.6935217005847008
+2022-08-07 23:31:58 | INFO : file Schubert_D911-24_HU33.npy tested. Cosine sim: 0.7619583866266513
+2022-08-07 23:32:02 | INFO : file Schubert_D911-08_FI66.npy tested. Cosine sim: 0.5412044265002675
+2022-08-07 23:32:06 | INFO : file Schubert_D911-18_FI66.npy tested. Cosine sim: 0.6692068321904234
+2022-08-07 23:32:10 | INFO : file Schubert_D911-08_TR99.npy tested. Cosine sim: 0.5564974201694862
+2022-08-07 23:32:13 | INFO : file Schubert_D911-08_HU33.npy tested. Cosine sim: 0.5810688764586945
+2022-08-07 23:32:18 | INFO : file Schubert_D911-12_FI80.npy tested. Cosine sim: 0.7421005790512814
+2022-08-07 23:32:22 | INFO : file Schubert_D911-13_FI66.npy tested. Cosine sim: 0.7373560505089938
+2022-08-07 23:32:25 | INFO : file Schubert_D911-02_QU98.npy tested. Cosine sim: 0.5947570725303802
+2022-08-07 23:32:30 | INFO : file Schubert_D911-23_SC06.npy tested. Cosine sim: 0.7861609961827606
+2022-08-07 23:32:35 | INFO : file Schubert_D911-06_QU98.npy tested. Cosine sim: 0.6871120798292473
+2022-08-07 23:32:39 | INFO : file Schubert_D911-23_FI80.npy tested. Cosine sim: 0.8193876864140845
+2022-08-07 23:32:43 | INFO : file Schubert_D911-15_FI66.npy tested. Cosine sim: 0.705051526463995
+2022-08-07 23:32:48 | INFO : file Schubert_D911-07_SC06.npy tested. Cosine sim: 0.6729194161570933
+2022-08-07 23:32:53 | INFO : file Schubert_D911-21_TR99.npy tested. Cosine sim: 0.7833822782946281
+2022-08-07 23:32:59 | INFO : file Schubert_D911-21_FI55.npy tested. Cosine sim: 0.7443660979961276
+2022-08-07 23:33:03 | INFO : file Schubert_D911-07_HU33.npy tested. Cosine sim: 0.6804796136498589
+2022-08-07 23:33:08 | INFO : file Schubert_D911-17_AL98.npy tested. Cosine sim: 0.6624020607640254
+2022-08-07 23:33:13 | INFO : file Schubert_D911-11_SC06.npy tested. Cosine sim: 0.6789167017999646
+2022-08-07 23:33:19 | INFO : file Schubert_D911-20_FI55.npy tested. Cosine sim: 0.7748903490988678
+2022-08-07 23:33:24 | INFO : file Schubert_D911-09_AL98.npy tested. Cosine sim: 0.7060819181828781
+2022-08-07 23:33:28 | INFO : file Schubert_D911-17_FI66.npy tested. Cosine sim: 0.6455327837645886
+2022-08-07 23:33:33 | INFO : file Schubert_D911-24_TR99.npy tested. Cosine sim: 0.7322558899855072
+2022-08-07 23:33:38 | INFO : file Schubert_D911-09_FI55.npy tested. Cosine sim: 0.6484615986469963
+2022-08-07 23:33:42 | INFO : file Schubert_D911-20_AL98.npy tested. Cosine sim: 0.7491554538968029
+2022-08-07 23:33:46 | INFO : file Schubert_D911-07_AL98.npy tested. Cosine sim: 0.7292554250432371
+2022-08-07 23:33:51 | INFO : file Schubert_D911-08_OL06.npy tested. Cosine sim: 0.5776576346469329
+2022-08-07 23:33:55 | INFO : file Schubert_D911-14_FI80.npy tested. Cosine sim: 0.7320081011979681
+2022-08-07 23:33:59 | INFO : file Schubert_D911-08_SC06.npy tested. Cosine sim: 0.5594520095816823
+2022-08-07 23:34:02 | INFO : file Schubert_D911-18_QU98.npy tested. Cosine sim: 0.6809493050438804
+2022-08-07 23:34:07 | INFO : file Schubert_D911-11_QU98.npy tested. Cosine sim: 0.5567305837187666
+2022-08-07 23:34:11 | INFO : file Schubert_D911-15_TR99.npy tested. Cosine sim: 0.7387994924852873
+2022-08-07 23:34:15 | INFO : file Schubert_D911-22_HU33.npy tested. Cosine sim: 0.7171980897666372
+2022-08-07 23:34:20 | INFO : file Schubert_D911-24_FI80.npy tested. Cosine sim: 0.7939562836360958
+2022-08-07 23:34:25 | INFO : file Schubert_D911-21_AL98.npy tested. Cosine sim: 0.7644086071230789
+2022-08-07 23:34:29 | INFO : file Schubert_D911-16_HU33.npy tested. Cosine sim: 0.659687882457907
+2022-08-07 23:34:33 | INFO : file Schubert_D911-17_SC06.npy tested. Cosine sim: 0.6260948413650487
+2022-08-07 23:34:37 | INFO : file Schubert_D911-15_QU98.npy tested. Cosine sim: 0.6900130330756913
+2022-08-07 23:34:41 | INFO : file Schubert_D911-04_FI66.npy tested. Cosine sim: 0.616017257144969
+2022-08-07 23:34:46 | INFO : file Schubert_D911-11_FI55.npy tested. Cosine sim: 0.6798057240976297
+2022-08-07 23:34:50 | INFO : file Schubert_D911-10_FI55.npy tested. Cosine sim: 0.7757087036634784
+2022-08-07 23:34:56 | INFO : file Schubert_D911-01_FI80.npy tested. Cosine sim: 0.8009833533424217
+2022-08-07 23:35:00 | INFO : file Schubert_D911-12_OL06.npy tested. Cosine sim: 0.7192054787822264
+2022-08-07 23:35:04 | INFO : file Schubert_D911-23_FI55.npy tested. Cosine sim: 0.811229742148904
+2022-08-07 23:35:08 | INFO : file Schubert_D911-13_OL06.npy tested. Cosine sim: 0.7822547134029831
+2022-08-07 23:35:14 | INFO : file Schubert_D911-20_QU98.npy tested. Cosine sim: 0.7759473721433601
+2022-08-07 23:35:18 | INFO : file Schubert_D911-10_FI80.npy tested. Cosine sim: 0.78597613081308
+2022-08-07 23:35:24 | INFO : file Schubert_D911-11_FI80.npy tested. Cosine sim: 0.7027916046977007
+2022-08-07 23:35:29 | INFO : file Schubert_D911-17_HU33.npy tested. Cosine sim: 0.6445939188619273
+2022-08-07 23:35:34 | INFO : file Schubert_D911-10_HU33.npy tested. Cosine sim: 0.7564490960151466
+2022-08-07 23:35:38 | INFO : file Schubert_D911-04_OL06.npy tested. Cosine sim: 0.6610345654954478
+2022-08-07 23:35:43 | INFO : file Schubert_D911-11_FI66.npy tested. Cosine sim: 0.672997083466987
+2022-08-07 23:35:49 | INFO : file Schubert_D911-01_QU98.npy tested. Cosine sim: 0.6951644650463924
+2022-08-07 23:35:53 | INFO : file Schubert_D911-10_SC06.npy tested. Cosine sim: 0.7739737503699999
+2022-08-07 23:35:57 | INFO : file Schubert_D911-23_OL06.npy tested. Cosine sim: 0.7795938634255604
+2022-08-07 23:36:01 | INFO : file Schubert_D911-21_SC06.npy tested. Cosine sim: 0.7600767015184681
+2022-08-07 23:36:06 | INFO : file Schubert_D911-06_HU33.npy tested. Cosine sim: 0.7331912176302157
+2022-08-07 23:36:11 | INFO : file Schubert_D911-04_AL98.npy tested. Cosine sim: 0.6089328777204536
+2022-08-07 23:36:15 | INFO : file Schubert_D911-03_AL98.npy tested. Cosine sim: 0.797616600804429
+2022-08-07 23:36:20 | INFO : file Schubert_D911-10_QU98.npy tested. Cosine sim: 0.6762355971966906
+2022-08-07 23:36:24 | INFO : file Schubert_D911-16_FI66.npy tested. Cosine sim: 0.6655042754888406
+2022-08-07 23:36:28 | INFO : file Schubert_D911-15_SC06.npy tested. Cosine sim: 0.7039829480004942
+2022-08-07 23:36:33 | INFO : file Schubert_D911-14_AL98.npy tested. Cosine sim: 0.6841734263156003
+2022-08-07 23:36:38 | INFO : file Schubert_D911-06_OL06.npy tested. Cosine sim: 0.798172827576846
+2022-08-07 23:36:42 | INFO : file Schubert_D911-03_OL06.npy tested. Cosine sim: 0.7916945435914889
+2022-08-07 23:36:46 | INFO : file Schubert_D911-19_TR99.npy tested. Cosine sim: 0.7500241320459113
+2022-08-07 23:36:50 | INFO : file Schubert_D911-02_FI66.npy tested. Cosine sim: 0.6442706697096573
+2022-08-07 23:36:54 | INFO : file Schubert_D911-16_QU98.npy tested. Cosine sim: 0.5823648474596214
+2022-08-07 23:36:58 | INFO : file Schubert_D911-08_QU98.npy tested. Cosine sim: 0.5209032556974904
+2022-08-07 23:37:02 | INFO : file Schubert_D911-16_AL98.npy tested. Cosine sim: 0.6825567558451325
+2022-08-07 23:37:08 | INFO : file Schubert_D911-05_AL98.npy tested. Cosine sim: 0.7082376216228043
+2022-08-07 23:37:11 | INFO : file 03-ChristederdubistTagundLicht.npy tested. Cosine sim: 0.7935086243222442
+2022-08-07 23:37:14 | INFO : file 05-DieNacht.npy tested. Cosine sim: 0.6590021880193349
+2022-08-07 23:37:18 | INFO : file 01-AchGottundHerr.npy tested. Cosine sim: 0.8024429205745642
+2022-08-07 23:37:21 | INFO : file 08-FuerDeinenThron.npy tested. Cosine sim: 0.8282558838448969
+2022-08-07 23:37:24 | INFO : file 06-DieSonne.npy tested. Cosine sim: 0.8037148108031974
+2022-08-07 23:37:27 | INFO : file 09-Jesus.npy tested. Cosine sim: 0.796713218381996
+2022-08-07 23:37:31 | INFO : file 02-AchLiebenChristen.npy tested. Cosine sim: 0.8004001623095038
+2022-08-07 23:37:34 | INFO : file 10-NunBitten.npy tested. Cosine sim: 0.813477557740172
+2022-08-07 23:37:37 | INFO : file 07-HerrGott.npy tested. Cosine sim: 0.8375207601640107
+2022-08-07 23:37:40 | INFO : file 04-ChristeDuBeistand.npy tested. Cosine sim: 0.8177586631570921
+2022-08-07 23:37:46 | INFO : file brahms.npy tested. Cosine sim: 0.8104653275847914
+2022-08-07 23:37:49 | INFO : file lussier.npy tested. Cosine sim: 0.7395490238459675
+2022-08-07 23:37:52 | INFO : file schubert.npy tested. Cosine sim: 0.7881753914693435
+2022-08-07 23:37:55 | INFO : file take_five.npy tested. Cosine sim: 0.6834076093587264
+2022-08-07 23:37:59 | INFO : file mozart.npy tested. Cosine sim: 0.8563428562302907
+2022-08-07 23:38:02 | INFO : file bruckner.npy tested. Cosine sim: 0.7522057256365189
+2022-08-07 23:38:07 | INFO : file beethoven.npy tested. Cosine sim: 0.805022685740809
+2022-08-07 23:38:11 | INFO : file mahler.npy tested. Cosine sim: 0.7668502580640287
+2022-08-07 23:38:16 | INFO : file mozart.npy tested. Cosine sim: 0.8194694156379457
+2022-08-07 23:38:16 | INFO : ### Testing done. Results: ######################################## 
+
+2022-08-07 23:38:16 | INFO : Mean precision:   0.7123771885861665
+2022-08-07 23:38:16 | INFO : Mean recall:   0.5789583947932959
+2022-08-07 23:38:16 | INFO : Mean f_measure:   0.628037385912042
+2022-08-07 23:38:16 | INFO : Mean cosine_sim:   0.7129630584629328
+2022-08-07 23:38:16 | INFO : Mean binary_crossentropy:   0.13539464453557168
+2022-08-07 23:38:16 | INFO : Mean euclidean_distance:   1.2520535413334781
+2022-08-07 23:38:16 | INFO : Mean binary_accuracy:   0.9665726714388271
+2022-08-07 23:38:16 | INFO : Mean soft_accuracy:   0.9587568960524023
+2022-08-07 23:38:16 | INFO : Mean accum_energy:   0.495938296553689
+2022-08-07 23:38:16 | INFO : Mean roc_auc_measure:   0.9685388438636342
+2022-08-07 23:38:16 | INFO : Mean average_precision_score:   0.6920571089327764
+2022-08-07 23:38:16 | INFO : Mean Precision:   0.7123771885861665
+2022-08-07 23:38:16 | INFO : Mean Recall:   0.5789583947932959
+2022-08-07 23:38:16 | INFO : Mean Accuracy:   0.46473106593802754
+2022-08-07 23:38:16 | INFO : Mean Substitution Error:   0.10518248982309031
+2022-08-07 23:38:16 | INFO : Mean Miss Error:   0.31585911538361405
+2022-08-07 23:38:16 | INFO : Mean False Alarm Error:   0.14006167797910538
+2022-08-07 23:38:16 | INFO : Mean Total Error:   0.5611032831858097
+2022-08-07 23:38:16 | INFO : Mean Chroma Precision:   0.7423608367212772
+2022-08-07 23:38:16 | INFO : Mean Chroma Recall:   0.6027124950854692
+2022-08-07 23:38:16 | INFO : Mean Chroma Accuracy:   0.4922072458392662
+2022-08-07 23:38:16 | INFO : Mean Chroma Substitution Error:   0.0814283895309164
+2022-08-07 23:38:16 | INFO : Mean Chroma Miss Error:   0.31585911538361405
+2022-08-07 23:38:16 | INFO : Mean Chroma False Alarm Error:   0.14006167797910538
+2022-08-07 23:38:16 | INFO : Mean Chroma Total Error:   0.5373491828936358
+2022-08-07 23:38:16 | INFO : 
+
+2022-08-07 23:38:16 | INFO : Framewise precision:   0.7067877765247909
+2022-08-07 23:38:16 | INFO : Framewise recall:   0.5866781756575747
+2022-08-07 23:38:16 | INFO : Framewise f_measure:   0.6313577616519541
+2022-08-07 23:38:16 | INFO : Framewise cosine_sim:   0.7149656327537297
+2022-08-07 23:38:16 | INFO : Framewise binary_crossentropy:   0.13690162466494898
+2022-08-07 23:38:16 | INFO : Framewise euclidean_distance:   1.2671500655565044
+2022-08-07 23:38:16 | INFO : Framewise binary_accuracy:   0.965907874840061
+2022-08-07 23:38:16 | INFO : Framewise soft_accuracy:   0.9580892616654485
+2022-08-07 23:38:16 | INFO : Framewise accum_energy:   0.506087945021831
+2022-08-07 23:38:16 | INFO : Framewise roc_auc_measure:   0.9687684166011483
+2022-08-07 23:38:16 | INFO : Framewise average_precision_score:   0.6917733573021214
+2022-08-07 23:38:16 | INFO : Framewise Precision:   0.7067877765247909
+2022-08-07 23:38:16 | INFO : Framewise Recall:   0.5866781756575747
+2022-08-07 23:38:16 | INFO : Framewise Accuracy:   0.4669624264992185
+2022-08-07 23:38:16 | INFO : Framewise Substitution Error:   0.10792371670752737
+2022-08-07 23:38:16 | INFO : Framewise Miss Error:   0.3053981076348986
+2022-08-07 23:38:16 | INFO : Framewise False Alarm Error:   0.14702580872479717
+2022-08-07 23:38:16 | INFO : Framewise Total Error:   0.5603476330672227
+2022-08-07 23:38:16 | INFO : Framewise Chroma Precision:   0.7374617076549981
+2022-08-07 23:38:16 | INFO : Framewise Chroma Recall:   0.6115678910926574
+2022-08-07 23:38:16 | INFO : Framewise Chroma Accuracy:   0.4958504789783065
+2022-08-07 23:38:16 | INFO : Framewise Chroma Substitution Error:   0.0830340012724448
+2022-08-07 23:38:16 | INFO : Framewise Chroma Miss Error:   0.3053981076348986
+2022-08-07 23:38:16 | INFO : Framewise Chroma False Alarm Error:   0.14702580872479717
+2022-08-07 23:38:16 | INFO : Framewise Chroma Total Error:   0.5354579176321406

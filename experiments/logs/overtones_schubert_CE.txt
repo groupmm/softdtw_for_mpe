@@ -1,0 +1,140 @@
+2022-09-02 09:03:48 | INFO : Logging experiment overtones_schubert_strong_alignment
+2022-09-02 09:03:48 | INFO : Experiment config: do training = False
+2022-09-02 09:03:48 | INFO : Experiment config: do validation = False
+2022-09-02 09:03:48 | INFO : Experiment config: do testing = True
+2022-09-02 09:03:48 | INFO : Training set parameters: {'context': 75, 'seglength': 500, 'stride': 200, 'compression': 10}
+2022-09-02 09:03:48 | INFO : Validation set parameters: {'context': 75, 'seglength': 500, 'stride': 500, 'compression': 10}
+2022-09-02 09:03:48 | INFO : Test set parameters: {'context': 75, 'seglength': 500, 'stride': 500, 'compression': 10}
+2022-09-02 09:03:48 | INFO : Test parameters: {'batch_size': 16, 'shuffle': False, 'num_workers': 8}
+2022-09-02 09:03:48 | INFO : Save filewise results = True, in folder /home/mk@alabsad.fau.de/Repos/multipitch_softdtw/experiments/results_filewise/overtones_schubert_strong_alignment.csv
+2022-09-02 09:03:48 | INFO : Save model predictions = True, in folder /home/mk@alabsad.fau.de/Repos/multipitch_softdtw/predictions/overtones_schubert_strong_alignment
+2022-09-02 09:03:48 | INFO : CUDA use_cuda: True
+2022-09-02 09:03:48 | INFO : CUDA device: cuda:0
+2022-09-02 09:03:49 | INFO :  --- Model config: -------------------------------------------- 
+2022-09-02 09:03:49 | INFO : Model: basic_cnn_segm_sigmoid
+2022-09-02 09:03:49 | INFO : Model parameters: {'n_chan_input': 6, 'n_chan_layers': [20, 20, 10, 1], 'n_bins_in': 216, 'n_bins_out': 72, 'a_lrelu': 0.3, 'p_dropout': 0.2}
+2022-09-02 09:03:51 | INFO : 
+==========================================================================================
+Layer (type:depth-idx)                   Output Shape              Param #
+==========================================================================================
+basic_cnn_segm_sigmoid                   [1, 1, 100, 72]           --
+├─LayerNorm: 1-1                         [1, 174, 6, 216]          2,592
+├─Sequential: 1-2                        [1, 20, 174, 216]         --
+│    └─Conv2d: 2-1                       [1, 20, 174, 216]         27,020
+│    └─LeakyReLU: 2-2                    [1, 20, 174, 216]         --
+│    └─MaxPool2d: 2-3                    [1, 20, 174, 216]         --
+│    └─Dropout: 2-4                      [1, 20, 174, 216]         --
+├─Sequential: 1-3                        [1, 20, 174, 72]          --
+│    └─Conv2d: 2-5                       [1, 20, 174, 72]          3,620
+│    └─LeakyReLU: 2-6                    [1, 20, 174, 72]          --
+│    └─MaxPool2d: 2-7                    [1, 20, 174, 72]          --
+│    └─Dropout: 2-8                      [1, 20, 174, 72]          --
+├─Sequential: 1-4                        [1, 10, 100, 72]          --
+│    └─Conv2d: 2-9                       [1, 10, 100, 72]          15,010
+│    └─LeakyReLU: 2-10                   [1, 10, 100, 72]          --
+│    └─Dropout: 2-11                     [1, 10, 100, 72]          --
+├─Sequential: 1-5                        [1, 1, 100, 72]           --
+│    └─Conv2d: 2-12                      [1, 1, 100, 72]           11
+│    └─LeakyReLU: 2-13                   [1, 1, 100, 72]           --
+│    └─Dropout: 2-14                     [1, 1, 100, 72]           --
+│    └─Conv2d: 2-15                      [1, 1, 100, 72]           2
+│    └─Sigmoid: 2-16                     [1, 1, 100, 72]           --
+==========================================================================================
+Total params: 48,255
+Trainable params: 48,255
+Non-trainable params: 0
+Total mult-adds (G): 1.17
+==========================================================================================
+Input size (MB): 0.90
+Forward/backward pass size (MB): 10.51
+Params size (MB): 0.19
+Estimated Total Size (MB): 11.61
+==========================================================================================
+2022-09-02 09:03:51 | INFO : 
+ 
+ ###################### START TESTING ###################### 
+
+2022-09-02 09:03:51 | INFO :  ### trained model loaded from /home/mk@alabsad.fau.de/Repos/multipitch_softdtw/models/overtones_schubert_strong_alignment.pt 
+
+2022-09-02 09:03:56 | INFO : file Schubert_D911-18_SC06.npy tested. Cosine sim: 0.7486807532909977
+2022-09-02 09:03:57 | INFO : file Schubert_D911-22_SC06.npy tested. Cosine sim: 0.8122296923094319
+2022-09-02 09:04:00 | INFO : file Schubert_D911-01_HU33.npy tested. Cosine sim: 0.8661993246286721
+2022-09-02 09:04:02 | INFO : file Schubert_D911-03_HU33.npy tested. Cosine sim: 0.841847877994421
+2022-09-02 09:04:03 | INFO : file Schubert_D911-14_HU33.npy tested. Cosine sim: 0.8181121881340242
+2022-09-02 09:04:06 | INFO : file Schubert_D911-01_SC06.npy tested. Cosine sim: 0.8837386926355039
+2022-09-02 09:04:08 | INFO : file Schubert_D911-24_SC06.npy tested. Cosine sim: 0.8839794780706024
+2022-09-02 09:04:10 | INFO : file Schubert_D911-14_SC06.npy tested. Cosine sim: 0.8125340059401511
+2022-09-02 09:04:11 | INFO : file Schubert_D911-02_SC06.npy tested. Cosine sim: 0.6995840842853039
+2022-09-02 09:04:12 | INFO : file Schubert_D911-13_SC06.npy tested. Cosine sim: 0.8545384716667385
+2022-09-02 09:04:14 | INFO : file Schubert_D911-11_HU33.npy tested. Cosine sim: 0.7554098021097124
+2022-09-02 09:04:17 | INFO : file Schubert_D911-05_HU33.npy tested. Cosine sim: 0.7500371706130178
+2022-09-02 09:04:18 | INFO : file Schubert_D911-04_HU33.npy tested. Cosine sim: 0.6769009469634615
+2022-09-02 09:04:20 | INFO : file Schubert_D911-03_SC06.npy tested. Cosine sim: 0.8278890982425057
+2022-09-02 09:04:21 | INFO : file Schubert_D911-09_SC06.npy tested. Cosine sim: 0.8083689198569172
+2022-09-02 09:04:22 | INFO : file Schubert_D911-19_HU33.npy tested. Cosine sim: 0.6957451336181979
+2022-09-02 09:04:24 | INFO : file Schubert_D911-20_SC06.npy tested. Cosine sim: 0.8547824869736543
+2022-09-02 09:04:26 | INFO : file Schubert_D911-23_HU33.npy tested. Cosine sim: 0.8398042387785158
+2022-09-02 09:04:28 | INFO : file Schubert_D911-12_SC06.npy tested. Cosine sim: 0.7878777756501792
+2022-09-02 09:04:28 | INFO : file Schubert_D911-18_HU33.npy tested. Cosine sim: 0.7872315110207931
+2022-09-02 09:04:30 | INFO : file Schubert_D911-02_HU33.npy tested. Cosine sim: 0.7221797548985007
+2022-09-02 09:04:31 | INFO : file Schubert_D911-12_HU33.npy tested. Cosine sim: 0.765698408503938
+2022-09-02 09:04:34 | INFO : file Schubert_D911-05_SC06.npy tested. Cosine sim: 0.7854041021056354
+2022-09-02 09:04:35 | INFO : file Schubert_D911-16_SC06.npy tested. Cosine sim: 0.7473157727870757
+2022-09-02 09:04:37 | INFO : file Schubert_D911-21_HU33.npy tested. Cosine sim: 0.8555249219312148
+2022-09-02 09:04:38 | INFO : file Schubert_D911-13_HU33.npy tested. Cosine sim: 0.8591850373374172
+2022-09-02 09:04:39 | INFO : file Schubert_D911-19_SC06.npy tested. Cosine sim: 0.7912683252160699
+2022-09-02 09:04:41 | INFO : file Schubert_D911-04_SC06.npy tested. Cosine sim: 0.6609957533092929
+2022-09-02 09:04:42 | INFO : file Schubert_D911-09_HU33.npy tested. Cosine sim: 0.8010077541439526
+2022-09-02 09:04:44 | INFO : file Schubert_D911-20_HU33.npy tested. Cosine sim: 0.8401019464918201
+2022-09-02 09:04:46 | INFO : file Schubert_D911-06_SC06.npy tested. Cosine sim: 0.9082678576300598
+2022-09-02 09:04:48 | INFO : file Schubert_D911-15_HU33.npy tested. Cosine sim: 0.7565018151365124
+2022-09-02 09:04:50 | INFO : file Schubert_D911-24_HU33.npy tested. Cosine sim: 0.8719643298394848
+2022-09-02 09:04:51 | INFO : file Schubert_D911-08_HU33.npy tested. Cosine sim: 0.7016898779685009
+2022-09-02 09:04:53 | INFO : file Schubert_D911-23_SC06.npy tested. Cosine sim: 0.86036567210514
+2022-09-02 09:04:54 | INFO : file Schubert_D911-07_SC06.npy tested. Cosine sim: 0.7749980964646335
+2022-09-02 09:04:56 | INFO : file Schubert_D911-07_HU33.npy tested. Cosine sim: 0.7688404962346639
+2022-09-02 09:04:58 | INFO : file Schubert_D911-11_SC06.npy tested. Cosine sim: 0.7686893393555001
+2022-09-02 09:04:59 | INFO : file Schubert_D911-08_SC06.npy tested. Cosine sim: 0.6925815059222137
+2022-09-02 09:05:00 | INFO : file Schubert_D911-22_HU33.npy tested. Cosine sim: 0.7981991094801467
+2022-09-02 09:05:02 | INFO : file Schubert_D911-16_HU33.npy tested. Cosine sim: 0.7507372264311833
+2022-09-02 09:05:03 | INFO : file Schubert_D911-17_SC06.npy tested. Cosine sim: 0.7215613787181138
+2022-09-02 09:05:05 | INFO : file Schubert_D911-17_HU33.npy tested. Cosine sim: 0.7369342200141711
+2022-09-02 09:05:07 | INFO : file Schubert_D911-10_HU33.npy tested. Cosine sim: 0.8319248337478633
+2022-09-02 09:05:08 | INFO : file Schubert_D911-10_SC06.npy tested. Cosine sim: 0.8382292635038836
+2022-09-02 09:05:10 | INFO : file Schubert_D911-21_SC06.npy tested. Cosine sim: 0.8640683587681682
+2022-09-02 09:05:13 | INFO : file Schubert_D911-06_HU33.npy tested. Cosine sim: 0.8838098849969082
+2022-09-02 09:05:14 | INFO : file Schubert_D911-15_SC06.npy tested. Cosine sim: 0.7585557194489595
+2022-09-02 09:05:14 | INFO : ### Testing done. Results: ######################################## 
+
+2022-09-02 09:05:14 | INFO : Mean cosine_sim:   0.7942102586515379
+2022-09-02 09:05:14 | INFO : Mean Precision:   0.8229224015406347
+2022-09-02 09:05:14 | INFO : Mean Recall:   0.19074876384210368
+2022-09-02 09:05:14 | INFO : Mean Accuracy:   0.18339251396062886
+2022-09-02 09:05:14 | INFO : Mean Substitution Error:   0.03719488186507319
+2022-09-02 09:05:14 | INFO : Mean Miss Error:   0.7720563542928233
+2022-09-02 09:05:14 | INFO : Mean False Alarm Error:   0.004549743634421496
+2022-09-02 09:05:14 | INFO : Mean Total Error:   0.8138009797923177
+2022-09-02 09:05:14 | INFO : Mean Chroma Precision:   0.9196749109376884
+2022-09-02 09:05:14 | INFO : Mean Chroma Recall:   0.2136366767140415
+2022-09-02 09:05:14 | INFO : Mean Chroma Accuracy:   0.20975231425787985
+2022-09-02 09:05:14 | INFO : Mean Chroma Substitution Error:   0.01430696899313537
+2022-09-02 09:05:14 | INFO : Mean Chroma Miss Error:   0.7720563542928233
+2022-09-02 09:05:14 | INFO : Mean Chroma False Alarm Error:   0.004549743634421496
+2022-09-02 09:05:14 | INFO : Mean Chroma Total Error:   0.7909130669203802
+2022-09-02 09:05:14 | INFO : 
+
+2022-09-02 09:05:14 | INFO : Framewise cosine_sim:   0.8045045947934264
+2022-09-02 09:05:14 | INFO : Framewise Precision:   0.83219218518914
+2022-09-02 09:05:14 | INFO : Framewise Recall:   0.19366000066535108
+2022-09-02 09:05:14 | INFO : Framewise Accuracy:   0.18660200422525733
+2022-09-02 09:05:14 | INFO : Framewise Substitution Error:   0.034829955804125665
+2022-09-02 09:05:14 | INFO : Framewise Miss Error:   0.7715100435305231
+2022-09-02 09:05:14 | INFO : Framewise False Alarm Error:   0.004678426738227289
+2022-09-02 09:05:14 | INFO : Framewise Total Error:   0.811018426072876
+2022-09-02 09:05:14 | INFO : Framewise Chroma Precision:   0.9258847993165066
+2022-09-02 09:05:14 | INFO : Framewise Chroma Recall:   0.21572824442120336
+2022-09-02 09:05:14 | INFO : Framewise Chroma Accuracy:   0.2121097269807101
+2022-09-02 09:05:14 | INFO : Framewise Chroma Substitution Error:   0.012761712048273416
+2022-09-02 09:05:14 | INFO : Framewise Chroma Miss Error:   0.7715100435305231
+2022-09-02 09:05:14 | INFO : Framewise Chroma False Alarm Error:   0.004678426738227289
+2022-09-02 09:05:14 | INFO : Framewise Chroma Total Error:   0.7889501823170241
